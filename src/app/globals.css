@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Import your local Timeless font files */
+@font-face {
+  font-family: "Timeless";
+  src: url("/fonts/Timeless.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: "Timeless";
+  src: url("/fonts/Timeless-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Import Raleway font for navbar */
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-primary: #f8f6f1;
+    --color-secondary: #27272a;
+  }
+
+  * {
+    border-color: #e5e7eb;
+  }
+
+  body {
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Default heading styles with Timeless font */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Timeless", system-ui, sans-serif;
+    color: var(--color-secondary);
+  }
+
+  /* Paragraph and text styles */
+  p,
+  span,
+  div {
+    font-family: "Timeless", system-ui, sans-serif;
+    color: var(--color-secondary);
+  }
+  p {
+    font-size: 1.2rem; /* 16px - adjust this to your preferred size */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Custom component classes */
+  .heading-primary {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
+  .font-navbar {
+    font-family: "Raleway", system-ui, sans-serif;
+  }
+  .heading-secondary {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
+
+  .heading-tertiary {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
+
+  .subheading {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
+
+  .body-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-secondary);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
+
+  .subtext {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
+    font-family: "Timeless", system-ui, sans-serif;
+  }
 }
