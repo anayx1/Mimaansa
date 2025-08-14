@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
-/* Import your local Timeless font files */
+/* Define your custom colors using @theme directive */
+@theme {
+  --color-primary: #f8f6f1;
+  --color-secondary: #27272a;
+}
+
+/* Your font imports stay the same */
 @font-face {
   font-family: "Timeless";
   src: url("/fonts/Timeless.ttf") format("truetype");
@@ -17,7 +23,6 @@
   font-display: swap;
 }
 
-/* Import Raleway font for navbar */
 @font-face {
   font-family: "Raleway";
   src: url("/fonts/Raleway-VariableFont_wght.ttf") format("truetype");
@@ -27,6 +32,7 @@
 
 @layer base {
   :root {
+    /* These can be your fallback values */
     --color-primary: #f8f6f1;
     --color-secondary: #27272a;
   }
@@ -42,7 +48,6 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Default heading styles with Timeless font */
   h1,
   h2,
   h3,
@@ -53,29 +58,43 @@
     color: var(--color-secondary);
   }
 
-  /* Paragraph and text styles */
   p,
   span,
   div {
     font-family: "Timeless", system-ui, sans-serif;
     color: var(--color-secondary);
   }
+
+  /* ✅ Default paragraph size & line height */
   p {
-    font-size: 1.2rem; /* 16px - adjust this to your preferred size */
+    @apply text-xl leading-[30px]; /* 1.2rem font size, 2rem line height */
+  }
+  h2 {
+    @apply text-[72px] leading-[30px]  /* 1.2rem font size, 2rem line height */;
+  }
+  h3 {
+    @apply text-[40px] leading-[20px]  /* 1.2rem font size, 2rem line height */;
+  }
+  h4 {
+    @apply text-[20px]  /* 1.2rem font size, 2rem line height */;
   }
 }
-
+.section {
+  @apply w-full sm:w-full md:max-w-[95%] lg:max-w-[95%] mx-auto;
+}
+/* Ensure prose-styled paragraphs also follow the rule */
 @layer components {
-  /* Custom component classes */
   .heading-primary {
     font-size: 2.25rem;
     font-weight: 700;
     color: var(--color-secondary);
     font-family: "Timeless", system-ui, sans-serif;
   }
+
   .font-navbar {
     font-family: "Raleway", system-ui, sans-serif;
   }
+
   .heading-secondary {
     font-size: 1.875rem;
     font-weight: 700;
@@ -109,5 +128,10 @@
     font-weight: 400;
     color: color-mix(in srgb, var(--color-secondary) 80%, transparent);
     font-family: "Timeless", system-ui, sans-serif;
+  }
+
+  /* ✅ Force line height inside .prose */
+  .prose p {
+    @apply !leading-8;
   }
 }

@@ -17,7 +17,6 @@ import Footer from './components/Homepage/Footer'
 const page = () => {
   return (
     <>
-      <Navbar />
       <Hero />
       <About />
       <ScrollColorSection />
@@ -37,7 +36,6 @@ const page = () => {
         </div>
       </div>
       <FAQSection />
-      <Footer />
     </>)
 }
 

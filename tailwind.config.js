@@ -6,16 +6,19 @@ export default {
         './app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
-        colors: {
-            primary: 'var(--color-primary)',
-            secondary: 'var(--color-secondary)',
-            // You can add more colors here
+        extend: { // ✅ Use 'extend' instead of completely overriding
+            colors: {
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                // Your custom colors are now added to the default palette
+            },
+            fontFamily: {
+                timeless: ['Timeless', 'system-ui', 'sans-serif'],
+                Raleway: ['Raleway', 'system-ui', 'sans-serif'],
+                sans: ['Timeless', 'system-ui', 'sans-serif'], // Override default sans
+            },
 
         },
-        fontFamily: {
-            timeless: ['Timeless', 'system-ui', 'sans-serif'],
-            Raleway: ['Raleway', 'system-ui', 'sans-serif'],
-            sans: ['Timeless', 'system-ui', 'sans-serif'], // Make Timeless the default
-        },
     },
+    plugins: [],
 }

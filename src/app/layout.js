@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter, Poppins } from 'next/font/google';
+import AnimatedNavbar from "./components/Navbar";
+import Footer from "./components/Homepage/Footer";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -19,7 +21,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
+        <AnimatedNavbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
