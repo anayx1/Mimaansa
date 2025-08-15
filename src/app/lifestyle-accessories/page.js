@@ -1,14 +1,15 @@
 import React from 'react'
-import ApparelHero from '../components/Apparel/ApparelHero'
-import ApparelImageSection from '../components/Apparel/ImageSection'
-import BuiltWithCare from '../components/Apparel/BuildWithCare'
+import LifestyleAccessoriesImageSection from '../components/LifestyleAccessories/LifestyleAccessoriesImageSection'
+import LifestyleAccessoriesHero from '../components/LifestyleAccessories/LifestyleAccessoriesHero'
+import LifestyleAccessoriesBuiltWithCare from '../components/LifestyleAccessories/LifestyleAccessoriesBuildWithCare'
 
 const page = () => {
     return (
         <>
-            <ApparelHero />
-            <ApparelImageSection />
-            <BuiltWithCare />
+            {/* <ApparelHero /> */}
+            <LifestyleAccessoriesHero />
+            <LifestyleAccessoriesImageSection />
+            <LifestyleAccessoriesBuiltWithCare />
 
         </>
     )

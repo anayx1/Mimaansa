@@ -10,3 +10,17 @@ export default function Button({ children, className = "" }) {
         </button>
     );
 }
+export function ButtonDark({ children, className = "" }) {
+    return (
+        <button
+            className={`px-4 py-2 rounded bg-secondary text-primary text-lg font-medium
+        transition-all duration-200
+        border-1 border-secondary
+        hover:bg-primary
+        hover:text-secondary
+ ${className}`}
+        >
+            {children}
+        </button>
+    );
+}

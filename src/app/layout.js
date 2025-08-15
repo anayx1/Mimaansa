@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter, Poppins } from 'next/font/google';
 import AnimatedNavbar from "./components/Navbar";
@@ -21,9 +20,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
-        <AnimatedNavbar />
-        {children}
-        <Footer />
+          <AnimatedNavbar />
+          {children}
+          <Footer />
       </body>
     </html>
   );
