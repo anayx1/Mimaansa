@@ -17,26 +17,26 @@ const ServicesSection = () => {
             id: 2,
             title: "Product Development",
             description: "Turn ideas into products with coordinated sampling, prototyping, and design refinement.",
-            image: "/homepage/productdevelopment.avif",
+            image: "/homepage/productdevelopment.jpg",
         },
         {
             id: 3,
             title: "Negotiation & Pricing",
             description: "Secure competitive pricing and favorable terms through expert supplier negotiations.",
-            image: "/homepage/negotiation.avif",
+            image: "/homepage/negotiation.jpg",
         },
         {
             id: 4,
             title: "Order Management",
             description: "Stay on track with end-to-end production oversight and regular progress updates..",
-            image: "/homepage/order.avif",
+            image: "/homepage/order.jpg",
         }
         ,
         {
             id: 5,
             title: "Quality Control",
             description: "Ensure international standards through rigorous inspections and final product audits.",
-            image: "/homepage/quality.avif",
+            image: "/homepage/quality.jpg",
         }
     ]
 
@@ -160,13 +160,13 @@ const ServicesSection = () => {
                                         className="object-cover"
                                         sizes="350px"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent">
+                                    {/* <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent">
                                         <div className="absolute bottom-4 left-4">
                                             <h4 className="text-white text-sm font-medium">
                                                 {hoveredService.title}
                                             </h4>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </motion.div>
                         )}

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
@@ -61,7 +61,7 @@ export default function TimelineComponent() {
 
                 {/* Timeline */}
                 <div ref={containerRef} className="relative">
-                    {/* Desktop Timeline Line - positioned to go through center of dots */}
+                    {/* Desktop Timeline Line */}
                     <div className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-gray-300 h-full hidden md:block">
                         <motion.div
                             className="w-full bg-gray-800 origin-top"
@@ -97,23 +97,27 @@ export default function TimelineComponent() {
 }
 
 function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
-    // Calculate the progress threshold for this item
-    const itemThreshold = index / (totalItems - 1)
+  // Set threshold for each item in the range [0, 1]
+  // For the last item, extend the threshold to cover the final scroll range
+  const itemThreshold =
+    index === totalItems - 1
+      ? 1
+      : index / (totalItems - 1)
 
-    // Determine if this item should be active based on scroll progress
-    const isActive = useTransform(
-        scrollYProgress,
-        [Math.max(0, itemThreshold - 0.1), itemThreshold + 0.1],
-        [0, 1]
-    )
+  // Define the active range for this item
+  const activeRangeStart = Math.max(0, itemThreshold - (index === totalItems - 1 ? 0.25 : 0.1))
+  const activeRangeEnd = itemThreshold
 
-    // Transform scroll progress to opacity and color values
-    const textOpacity = useTransform(isActive, [0, 1], [0.4, 1])
-    const titleColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
-    const descriptionColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(75, 85, 99)"])
-    const numberColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(107, 114, 128)"])
-    const dotScale = useTransform(isActive, [0, 1], [0.8, 1.2])
-    const dotColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
+  // Use useTransform to create a smooth active state based on scrollYProgress within active range
+  const isActive = useTransform(scrollYProgress, [activeRangeStart, activeRangeEnd], [0, 1])
+
+  // Animate colors and opacity based on isActive
+  const textOpacity = useTransform(isActive, [0, 1], [0.4, 1])
+  const titleColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
+  const descriptionColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(75, 85, 99)"])
+  const numberColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(107, 114, 128)"])
+  const dotScale = useTransform(isActive, [0, 1], [0.8, 1.2])
+  const dotColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
 
     return (
         <motion.div
@@ -159,7 +163,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                                 </motion.div>
                             </div>
 
-                            {/* Timeline Dot - perfectly centered */}
+                            {/* Timeline Dot */}
                             <motion.div
                                 className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
                                 initial={{ scale: 0 }}
@@ -180,7 +184,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                             {/* Empty Left */}
                             <div className="w-1/2" />
 
-                            {/* Timeline Dot - perfectly centered */}
+                            {/* Timeline Dot */}
                             <motion.div
                                 className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
                                 initial={{ scale: 0 }}
@@ -231,7 +235,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
             {/* Mobile Layout */}
             <div className="md:hidden">
                 <div className="flex items-start relative">
-                    {/* Timeline Dot - perfectly centered on line */}
+                    {/* Timeline Dot */}
                     <motion.div
                         className="absolute left-6 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm mt-1"
                         initial={{ scale: 0 }}

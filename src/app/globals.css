@@ -70,10 +70,10 @@
     @apply text-xl leading-[30px]; /* 1.2rem font size, 2rem line height */
   }
   h2 {
-    @apply text-[72px] leading-[30px]  /* 1.2rem font size, 2rem line height */;
+    @apply text-[72px]   /* 1.2rem font size, 2rem line height */;
   }
   h3 {
-    @apply text-[40px] leading-[20px]  /* 1.2rem font size, 2rem line height */;
+    @apply text-[40px]   /* 1.2rem font size, 2rem line height */;
   }
   h4 {
     @apply text-[20px]  /* 1.2rem font size, 2rem line height */;

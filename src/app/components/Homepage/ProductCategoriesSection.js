@@ -11,25 +11,25 @@ const ProductCategoriesSection = () => {
             id: 1,
             title: "Apparels",
             description: "Trend-right fashion and durable workwear across womenswear, menswear, and...",
-            image: "/homepage/apparels.avif",
+            image: "/homepage/apparels.jpg",
         },
         {
             id: 2,
             title: "Lifestyle Accessories",
             description: "Distinctive additions to complement your product range – from fashion to handcrafted...",
-            image: "/homepage/lifestyle.avif",
+            image: "/homepage/lifestyle.jpg",
         },
         {
             id: 3,
             title: "Home Furnishings",
             description: "Beautiful home textiles and decor items, including bedding, bath linens, cushions...",
-            image: "/homepage/home.avif",
+            image: "/homepage/home.jpg",
         },
         {
             id: 4,
             title: "Fabrics",
             description: "Premium quality fabrics sourced from India's textile heritage...",
-            image: "/homepage/fabrics.avif",
+            image: "/homepage/fabrics.jpg",
         }
     ]
 
@@ -39,7 +39,7 @@ const ProductCategoriesSection = () => {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <motion.h2
-                        className="text-5xl lg:text-8xl mb-6"
+                        className=" mb-6"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}

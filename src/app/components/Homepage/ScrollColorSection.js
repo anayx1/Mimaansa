@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import CountUp from '../Counter'
 import Image from 'next/image'
+import Button from '../Button'
 
 const stats = [
     { value: 10, suffix: "+", label: "Years of Operations" },
@@ -112,7 +113,7 @@ const LetterColorChange = () => {
             </section>
 
             {/* About Section */}
-            <section className="min-h-screen bg-primary py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+            <section className="min-h-screen bg-secondary py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
                 <div className="container mx-auto max-w-[90%]">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                         {/* Left Content */}
@@ -124,7 +125,7 @@ const LetterColorChange = () => {
                             viewport={{ once: true }}
                         >
                             <motion.h2
-                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-secondary leading-tight text-white"
+                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl  leading-tight text-white"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -134,7 +135,14 @@ const LetterColorChange = () => {
                             </motion.h2>
 
                             <div className='grid grid-cols-1 sm:grid-cols-2 mt-10 sm:mt-20 gap-6 sm:gap-0'>
-                                <div className='flex justify-left items-center text-white text-lg sm:text-xl'>About us</div>
+                                <div className='flex justify-left items-center text-white text-lg sm:text-xl'>
+
+                                    <Button >
+                                        About us
+                                    </Button>
+                                </div>
+
+
                                 <motion.div
                                     className="space-y-4 sm:space-y-6 text-base sm:text-lg text-secondary/80 leading-relaxed"
                                     initial={{ opacity: 0, y: 20 }}
@@ -148,16 +156,7 @@ const LetterColorChange = () => {
                                 </motion.div>
                             </div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.5 }}
-                                viewport={{ once: true }}
-                            >
-                                <button className="bg-secondary text-primary px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-medium hover:bg-secondary/90 transition-colors duration-300">
-                                    Learn More About Us
-                                </button>
-                            </motion.div>
+
                         </motion.div>
 
                         {/* Right Image */}
