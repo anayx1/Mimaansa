@@ -1,39 +1,35 @@
 'use client'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import SecondSection from './LifestyleAccessoriesSecondSection'
 import Image from 'next/image'
 
 
 const images = [
-    "/products/lifestyle/lifestyle1.jpeg",
-    "/products/lifestyle/lifestyle2.jpeg",
-    "/products/lifestyle/lifestyle3.jpeg",
-    "/products/lifestyle/lifestyle4.jpeg",
-    "/products/lifestyle/lifestyle5.jpeg",
-    "/products/lifestyle/lifestyle6.jpeg",
-    "/products/lifestyle/lifestyle7.jpeg",
-    "/products/lifestyle/lifestyle8.jpeg",
-    "/products/lifestyle/lifestyle9.jpeg",
-    "/products/lifestyle/lifestyle10.jpeg",
-
+    "/products/furnishing/homefurnishing.jpg",
+    "/products/furnishing/homefurnishing1.jpg",
+    "/products/furnishing/homefurnishing2.jpeg",
+    "/products/furnishing/homefurnishing3.jpeg",
+    "/products/furnishing/homefurnishing4.jpeg",
+    "/products/furnishing/homefurnishing5.jpeg",
+    "/products/furnishing/homefurnishing6.jpeg",
+    "/products/furnishing/homefurnishing7.jpeg",
+    "/products/furnishing/homefurnishing8.jpeg",
+    "/products/furnishing/homefurnishing9.jpeg",
+    "/products/furnishing/homefurnishing10.jpeg",
 ]
-
 const images2 = [
-    "/products/lifestyle/lifestyle10.jpeg",
-    "/products/lifestyle/lifestyle11.jpeg",
-    "/products/lifestyle/lifestyle12.jpeg",
-    "/products/lifestyle/lifestyle13.jpeg",
-    "/products/lifestyle/lifestyle14.jpeg",
-    "/products/lifestyle/lifestyle15.jpeg",
-    "/products/lifestyle/lifestyle16.jpeg",
-    "/products/lifestyle/lifestyle17.jpeg",
-    "/products/lifestyle/lifestyle18.jpeg",
+    "/products/furnishing/homefurnishing11.jpeg",
+    "/products/furnishing/homefurnishing12.jpeg",
+    "/products/furnishing/homefurnishing13.jpeg",
+    "/products/furnishing/homefurnishing14.jpeg",
+    "/products/furnishing/homefurnishing15.jpeg",
+    "/products/furnishing/homefurnishing16.jpeg",
+    "/products/furnishing/homefurnishing17.jpeg",
+    "/products/furnishing/homefurnishing18.jpeg",
 ]
 
 
-
-const LifestyleAccessoriesHero = () => {
+const FabricsHero = () => {
     const containerRef = useRef(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -105,11 +101,9 @@ const LifestyleAccessoriesHero = () => {
                         {/* HEADER GRID */}
                         <div className='w-full flex justify-center items-center'>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12 section">
-                                <h2 className="text-primary font-bold">Lifestyle Accessories
-                                </h2>
+                                <h2 className="text-primary font-bold">Home Furnishings</h2>
                                 <p className="text-primary">
-
-                                    Under lifestyle accessories, we encompass a broad range of products that add style and personality to everyday life. This includes fashion accessories - such as leather handbags, canvas totes, scarves, belts, and jewellery - as well as home and wellness accents like artisanal candles, ceramic décor, or eco-friendly items. India's diverse artisan communities and modern workshops produce unique accessories that blend contemporary appeal with cultural character. Whether you need hand-embroidered shawls from Kashmir, jute tote bags from Kolkata, or costume jewellery from Jaipur, we have sources for each. Our team pays special attention to detail and finish in accessories, knowing these items often serve as statement pieces for a brand. By handling your fashion accessories sourcing in India, Mimaansa ensures you receive distinctive, high-quality pieces that stand out in your collection - all while meeting safety standards (for example, lead-free metal in jewellery) and your target price points.
+                                    With its rich heritage in textiles, India offers an incredible variety of home furnishings. We help you source everything from soft home textiles {'(bedsheets, quilts, towels)'} to decorative items (cushion covers, table linens, curtains) and even floor coverings like dhurrie rugs and carpets. Our suppliers are based in renowned textile hubs such as Panipat, bhadohi , Jaipur, and Karur - regions famed for weaving, printing, and artisanal craftsmanship. Whether you seek contemporary designs or traditional touches, we connect you with producers who excel in those styles. Mimaansa ensures that all home textile products are made to international quality standards, using azo-free dyes and durable fabrics. As proactive home textile exporters from India, we also keep an eye on emerging trends and sustainable materials - like organic cotton bedding or recycled yarn throws - to support your product development with fresh ideas.
                                 </p>
                             </div>
                         </div>
@@ -184,5 +178,4 @@ const LifestyleAccessoriesHero = () => {
     )
 }
 
-export default LifestyleAccessoriesHero
-
+export default FabricsHero

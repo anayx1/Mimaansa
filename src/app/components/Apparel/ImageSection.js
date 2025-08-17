@@ -35,7 +35,7 @@ const ApparelImageSection = () => {
 
     return (
         <section className="min-h-screen bg-primary py-16 sm:py-20 md:mt-80 md:mb-10 overflow-x-hidden">
-            <div className="container mx-auto px-8 w-[90%]">
+            <div className="container mx-auto px-8 w-[90%] ">
                 {/* Header */}
                 <motion.div className="text-center mb-16"
                     initial={{ opacity: 0, y: 60 }}                  // Start lower and invisible

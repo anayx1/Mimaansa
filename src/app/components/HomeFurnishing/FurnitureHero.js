@@ -1,39 +1,36 @@
 'use client'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import SecondSection from './LifestyleAccessoriesSecondSection'
 import Image from 'next/image'
 
 
 const images = [
-    "/products/lifestyle/lifestyle1.jpeg",
-    "/products/lifestyle/lifestyle2.jpeg",
-    "/products/lifestyle/lifestyle3.jpeg",
-    "/products/lifestyle/lifestyle4.jpeg",
-    "/products/lifestyle/lifestyle5.jpeg",
-    "/products/lifestyle/lifestyle6.jpeg",
-    "/products/lifestyle/lifestyle7.jpeg",
-    "/products/lifestyle/lifestyle8.jpeg",
-    "/products/lifestyle/lifestyle9.jpeg",
-    "/products/lifestyle/lifestyle10.jpeg",
-
+    "/products/fabrics/fabrics.jpg",
+    "/products/fabrics/fabrics1.jpg",
+    "/products/fabrics/fabrics2.jpg",
+    "/products/fabrics/fabrics3.jpg",
+    "/products/fabrics/fabrics4.jpg",
+    "/products/fabrics/fabrics5.jpg",
+    "/products/fabrics/fabrics6.jpg",
+    "/products/fabrics/fabrics7.jpg",
+    "/products/fabrics/fabrics8.jpg",
+    "/products/fabrics/fabrics9.jpg",
+    "/products/fabrics/fabrics10.jpg",
 ]
-
 const images2 = [
-    "/products/lifestyle/lifestyle10.jpeg",
-    "/products/lifestyle/lifestyle11.jpeg",
-    "/products/lifestyle/lifestyle12.jpeg",
-    "/products/lifestyle/lifestyle13.jpeg",
-    "/products/lifestyle/lifestyle14.jpeg",
-    "/products/lifestyle/lifestyle15.jpeg",
-    "/products/lifestyle/lifestyle16.jpeg",
-    "/products/lifestyle/lifestyle17.jpeg",
-    "/products/lifestyle/lifestyle18.jpeg",
+    "/products/fabrics/fabrics11.jpg",
+    "/products/fabrics/fabrics12.jpg",
+    "/products/fabrics/fabrics13.jpg",
+    "/products/fabrics/fabrics14.jpg",
+    "/products/fabrics/fabrics15.jpg",
+    "/products/fabrics/fabrics16.jpg",
+    "/products/fabrics/fabrics17.jpg",
+    "/products/fabrics/fabrics18.jpg",
+    "/products/fabrics/fabrics19.jpg",
 ]
 
 
-
-const LifestyleAccessoriesHero = () => {
+const FurnitureHero = () => {
     const containerRef = useRef(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -105,11 +102,9 @@ const LifestyleAccessoriesHero = () => {
                         {/* HEADER GRID */}
                         <div className='w-full flex justify-center items-center'>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12 section">
-                                <h2 className="text-primary font-bold">Lifestyle Accessories
-                                </h2>
+                                <h2 className="text-primary font-bold">Fabrics</h2>
                                 <p className="text-primary">
-
-                                    Under lifestyle accessories, we encompass a broad range of products that add style and personality to everyday life. This includes fashion accessories - such as leather handbags, canvas totes, scarves, belts, and jewellery - as well as home and wellness accents like artisanal candles, ceramic décor, or eco-friendly items. India's diverse artisan communities and modern workshops produce unique accessories that blend contemporary appeal with cultural character. Whether you need hand-embroidered shawls from Kashmir, jute tote bags from Kolkata, or costume jewellery from Jaipur, we have sources for each. Our team pays special attention to detail and finish in accessories, knowing these items often serve as statement pieces for a brand. By handling your fashion accessories sourcing in India, Mimaansa ensures you receive distinctive, high-quality pieces that stand out in your collection - all while meeting safety standards (for example, lead-free metal in jewellery) and your target price points.
+                                    We offer a curated range of premium fabrics tailored for global buyers. Our collection includes silk, cotton, linen, viscose, and high-performance blends, all sourced from trusted mills across India. Whether you're seeking base fabrics for fashion, furnishings, or accessories, we provide materials that meet both aesthetic and technical requirements. We also specialize in custom fabric development, offering exclusive prints, embroidery, dyeing, and finishes—perfect for boutique labels and larger brands looking to stand out. With flexibility in minimum order quantities and sample swatch development, our range is ideal for apparel, home décor, and lifestyle brands. At Mimaansa, we help you source the right fabric not just for today's trends, but with a focus on long-term quality, sustainability, and appeal.
                                 </p>
                             </div>
                         </div>
@@ -184,5 +179,4 @@ const LifestyleAccessoriesHero = () => {
     )
 }
 
-export default LifestyleAccessoriesHero
-
+export default FurnitureHero

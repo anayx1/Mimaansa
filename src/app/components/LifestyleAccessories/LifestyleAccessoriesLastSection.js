@@ -39,7 +39,7 @@ export default function ApparelLastSection() {
   };
 
   return (
-    <section className=" px-4 text-center py-20">
+    <section className=" px-4 text-center py-10">
       <div className="max-w-6xl mx-auto py-20">
         {hasMounted && (
           <motion.span

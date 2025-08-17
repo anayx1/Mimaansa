@@ -3,22 +3,21 @@ import React from 'react'
 
 
 const images = [
-    "/about/mission/mission1.avif", "/about/mission/mission2.avif",
-    "/about/mission/mission3.avif", "/about/mission/mission4.avif",
-    "/about/mission/mission5.avif", "/about/mission/mission7.avif",
-    "/about/mission/mission8.avif",
+    "/products/apperal/apperal.jpg", "/products/apperal/apperal2.jpg",
+    "/products/apperal/apperal3.jpg", "/products/apperal/apperal4.jpg",
+    "/products/apperal/apperal5.jpg", "/products/apperal/apperal6.jpg",
+    "/products/apperal/apperal7.jpg", "/products/apperal/apperal8.jpg",
 ]
 const images2 = [
-    "/about/mission/mission1.avif", "/about/mission/mission2.avif",
-    "/about/mission/mission3.avif", "/about/mission/mission4.avif",
-    "/about/mission/mission5.avif", "/about/mission/mission7.avif",
-    "/about/mission/mission8.avif",
+    "/products/apperal/apperal8.jpg", "/products/apperal/apperal9.jpg",
+    "/products/apperal/apperal10.jpg", "/products/apperal/apperal11.jpg",
+    "/products/apperal/apperal12.jpg", "/products/apperal/apperal13.jpg",
+    "/products/apperal/apperal14.jpg", "/products/apperal/apperal15.jpg",
 ]
 
 export default function SecondSection() {
     return (
         <section className="bg-secondary pt-16 ">
-
             <div className=" mx-auto">
                 {/* HEADER GRID */}
                 <div className='w-full flex justify-center items-center'>
@@ -45,7 +44,7 @@ export default function SecondSection() {
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-                                        quality={85}
+                                        quality={100}
                                     />
                                 </div>
                             </div>

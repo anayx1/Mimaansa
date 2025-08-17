@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Image from 'next/image'
 
-const LifestyleAccessoriesImageSection = () => {
+const FabricsImageSection = () => {
     const [hoveredCard, setHoveredCard] = useState(null)
 
     const categories = [
@@ -13,24 +13,24 @@ const LifestyleAccessoriesImageSection = () => {
             description: "Trend-right fashion and durable workwear across womenswear, menswear, and...",
             image: "/homepage/apparels.jpg",
         },
-        // {
-        //     id: 2,
-        //     title: "Lifestyle Accessories",
-        //     description: "Distinctive additions to complement your product range – from fashion to handcrafted...",
-        //     image: "/homepage/lifestyle.jpg",
-        // },
+        {
+            id: 2,
+            title: "Lifestyle Accessories",
+            description: "Distinctive additions to complement your product range – from fashion to handcrafted...",
+            image: "/homepage/lifestyle.jpg",
+        },
         {
             id: 3,
             title: "Home Furnishings",
             description: "Beautiful home textiles and decor items, including bedding, bath linens, cushions...",
             image: "/homepage/home.jpg",
         },
-        {
-            id: 4,
-            title: "Fabrics",
-            description: "Premium quality fabrics sourced from India's textile heritage...",
-            image: "/homepage/fabrics.jpg",
-        }
+        // {
+        //     id: 4,
+        //     title: "Fabrics",
+        //     description: "Premium quality fabrics sourced from India's textile heritage...",
+        //     image: "/homepage/fabrics.jpg",
+        // }
     ]
 
     return (
@@ -122,4 +122,4 @@ const LifestyleAccessoriesImageSection = () => {
     )
 }
 
-export default LifestyleAccessoriesImageSection
+export default FabricsImageSection
