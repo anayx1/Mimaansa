@@ -24,7 +24,7 @@ const BlogsHero = () => {
     return (<>
         <div ref={containerRef} className="relative h-[200vh]">
             {/* Hero Section */}
-            <section className="sticky top-0 h-screen w-full bg-[url(/blogs/heroblogs.jpg)] bg-cover bg-[center_70%] z-10">
+            <section className="sticky top-0 h-screen w-full bg-[url(/blogimage1.jpg)] bg-cover bg-[center_70%] z-10">
                 <div className="h-full w-full bg-black/50">
                     <div className="h-full w-full flex flex-col items-center justify-end px-4 sm:px-6 md:px-8">
                         <div className="max-w-[95%] flex flex-col lg:flex-row lg:justify-between pb-5 gap-4">
@@ -65,7 +65,8 @@ const BlogsHero = () => {
 
             {/* Second Section */}
             <motion.section
-                className="sticky top-0 h-screen w-full bg-[url(/blogs/blogs5.png)] bg-cover bg-[center_35%] text-white z-20 max-w-full"
+                className="sticky top-0 h-screen w-full bg-[url(/blogimage2.jpg)] bg-cover bg-[center_35%] text-white z-20 max-w-full"
+
                 style={{
                     scale: section1Scale,
                     y: section1Y,
