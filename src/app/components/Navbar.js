@@ -11,11 +11,11 @@ const AnimatedNavbar = () => {
     }
 
     const menuItems = [
-        'HOME',
-        'ABOUT',
-        'SERVICES',
-        'PRODUCTS',
-        'BLOGS'
+        { menu: 'HOME', link: '/' },
+        { menu: 'ABOUT', link: '/about-us' },
+        { menu: 'SERVICES', link: '/services' },
+        { menu: 'PRODUCTS', link: '/products' },
+        { menu: 'BLOGS', link: '/blogs' },
     ]
 
     const socialLinks = [
@@ -131,9 +131,9 @@ const AnimatedNavbar = () => {
                                         initial="hidden"
                                         animate="show"
                                     >
-                                        {menuItems.map((item) => (
+                                        {menuItems.map((item, index) => (
                                             <motion.div
-                                                key={item}
+                                                key={item.menu}
                                                 className="relative group"
                                                 variants={itemVariants}
                                             >
@@ -142,12 +142,12 @@ const AnimatedNavbar = () => {
                                                     <hr className="w-0 group-hover:w-20 h-[1px] bg-white transition-all duration-500 pointer-events-none" />
 
                                                     <motion.a
-                                                        href="#"
+                                                        href={item.link}
                                                         className="block text-4xl lg:text-5xl font-light text-white transition-colors relative"
                                                         whileHover={{ x: 20 }}
                                                         transition={{ duration: 0.3, ease: "easeOut" }}
                                                     >
-                                                        <span className="text-7xl font-light text-white">{item}</span>
+                                                        <span className="text-7xl font-light text-white">{item.menu}</span>
                                                     </motion.a>
                                                 </div>
                                             </motion.div>

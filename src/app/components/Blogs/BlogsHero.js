@@ -65,7 +65,7 @@ const BlogsHero = () => {
 
             {/* Second Section */}
             <motion.section
-                className="sticky top-0 h-screen w-full bg-[url(/blogs/blogs7.jpg)] bg-cover bg-[center_35%] text-white z-20 max-w-full"
+                className="sticky top-0 h-screen w-full bg-[url(/blogs/blogs5.png)] bg-cover bg-[center_35%] text-white z-20 max-w-full"
                 style={{
                     scale: section1Scale,
                     y: section1Y,
@@ -73,8 +73,9 @@ const BlogsHero = () => {
                 }}
             >
                 <div className='section  flex flex-col items-start justify-start pt-20 gap-3'>
-                    <span className='text-md'>New</span>
-                    <p className='text-'>
+                    <span className='text-md text-primary'>New</span>
+                    <p className='text-primary'>
+
                         The Journey of a Product: <br />From Idea to Shipment with Mimaansa
                     </p>
                     <ButtonDark>Read More</ButtonDark>
@@ -82,7 +83,7 @@ const BlogsHero = () => {
                 </div>
             </motion.section>
         </div>
-        {/* <div className='py-[250px]'></div> */}
+        <div className='py-[50px]'></div>
     </>
     )
 }

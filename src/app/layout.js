@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter, Poppins } from 'next/font/google';
 import AnimatedNavbar from "./components/Navbar";
 import Footer from "./components/Homepage/Footer";
+import SmoothScroll from "./SmoothScroll";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -20,9 +21,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
-          <AnimatedNavbar />
-          {children}
-          <Footer />
+        <AnimatedNavbar />
+        {children}
+        <Footer />
       </body>
     </html>
   );

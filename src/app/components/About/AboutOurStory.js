@@ -7,6 +7,8 @@ const OurStorySection = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isPlaying, setIsPlaying] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
+    const [isExpanded, setIsExpanded] = useState(false);
+
     const intervalRef = useRef(null)
 
     const images = [
@@ -36,7 +38,11 @@ const OurStorySection = () => {
     const handleMouseEnter = () => setIsPlaying(false)
     const handleMouseLeave = () => setIsPlaying(true)
     const handleImageLoad = () => setIsLoading(false)
+    const shortText =
+        "Mimaansa was founded to connect global businesses with India's rich manufacturing capabilities. Our founder recognized that while India is a top sourcing destination for apparel and textiles, navigating its supplier landscape can be complex for overseas buyers. Mimaansa bridges that gap by combining deep industry experience with local insight to make sourcing reliable and stress-free.";
 
+    const extendedText =
+        " Starting as a small team in India’s capital region, we’ve grown into a full-service sourcing and export agency serving clients across the USA, Europe, Australia, and more. Our journey is rooted in integrity, quality, and personal service. We value the strong relationships we’ve built with both clients and trusted Indian manufacturers who share our values. As India’s global sourcing appeal grows, we remain committed to offering dependable, personalized support that makes that opportunity accessible to all.";
     return (
         <section className="min-h-screen bg-primary py-16 sm:py-20 mt-[500px] md:mt-80 md:mb-10 overflow-x-hidden">
             <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
@@ -66,22 +72,34 @@ const OurStorySection = () => {
                             transition={{ duration: 0.8, delay: 0.4 }}
                             viewport={{ once: true }}
                         >
-                            <p className="text-base sm:text-lg md:text-xl text-secondary leading-relaxed text-center lg:text-left">
-                                Mimaansa was founded to connect global businesses with India's rich
-                                manufacturing capabilities. Our founder recognized that while India is
-                                a top sourcing destination for apparel and textiles, navigating its
-                                supplier landscape can be complex for overseas buyers.
-                                Mimaansa bridges that gap by combining deep industry experience with local
-                                insight to make sourcing reliable and stress-free.
-                            </p>
+                            <motion.p className=" text-secondary text-center lg:text-left">
+                                {shortText}
+                                <AnimatePresence>
+                                    {isExpanded && (
+                                        <motion.span
+                                            key="extended"
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            transition={{ duration: 0.6 }}
+                                        >
+                                            <br />
+                                            {extendedText}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </motion.p>
 
-                            <motion.button
-                                className="mx-auto lg:mx-0 mt-6 sm:mt-8 bg-secondary text-primary px-5 sm:px-6 py-2 text-base sm:text-lg hover:bg-primary hover:text-secondary hover:border hover:border-secondary transition-colors duration-300 rounded-sm"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                Read More
-                            </motion.button>
+                            {!isExpanded && (
+                                <motion.button
+                                    className="mx-auto lg:mx-0 mt-6 sm:mt-8 bg-secondary text-primary px-5 sm:px-6 py-2 text-base sm:text-lg hover:bg-primary hover:text-secondary hover:border hover:border-secondary transition-colors duration-300 rounded-sm"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => setIsExpanded(true)}
+                                >
+                                    Read More
+                                </motion.button>
+                            )}
                         </motion.div>
                     </motion.div>
 
