@@ -60,7 +60,7 @@ export default function Footer() {
 
                         {/* Links */}
                         <div className="flex flex-col items-center justify-center gap-1 text-center text-primary">
-                            <Link href="/terms-conditions">Terms & Conditions</Link>
+                            <Link href="/terms-and-conditions">Terms & Conditions</Link>
                             <Link href="/privacy-policy">Privacy Policy</Link>
                         </div>
                     </section>

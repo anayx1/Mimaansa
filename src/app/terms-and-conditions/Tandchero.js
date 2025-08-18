@@ -157,7 +157,7 @@ const Tandchero = () => {
                 </section>
             </motion.section>
         </div>
-        <div className='py-[250px]'></div>
+        <div className='md:py-[650px]'></div>
     </>
     )
 }
