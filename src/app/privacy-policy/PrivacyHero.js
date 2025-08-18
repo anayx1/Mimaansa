@@ -165,7 +165,7 @@ const PrivacyHero = () => {
                 </section>
             </motion.section>
         </div>
-        <div className='py-[600px]'></div>
+        <div className='md:py-[700px]'></div>
     </>
     )
 }
