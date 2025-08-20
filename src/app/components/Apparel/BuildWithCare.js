@@ -9,15 +9,14 @@ export default function BuiltWithCare() {
 
     const { scrollYProgress } = useScroll({
         target: sectionRef,
-        offset: ['start 0.1', 'end 0.8'],
+        offset: ['start 0.1', 'end 1.0'],
     })
 
     // numeric scale for font size
     const headingSize = useTransform(scrollYProgress, [0, 1], [70, 40])
     // convert to string with px
     const headingFontSize = useMotionTemplate`${headingSize}px`
-
-    const imageScale = useTransform(scrollYProgress, [0, 1], [1.5, 1])
+    const imageScale = useTransform(scrollYProgress, [0, 1], [1.7, 1])
 
     return (
         <>

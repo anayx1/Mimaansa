@@ -2,7 +2,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef, useMemo } from 'react'
 
-export default function AboutScrollSection() {
+export default function   AboutScrollSection() {
   const containerRef = useRef(null)
 
   const { scrollYProgress } = useScroll({

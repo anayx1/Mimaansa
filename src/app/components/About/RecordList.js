@@ -67,7 +67,8 @@ export default function AnimatedList() {
                 >
                     {/* Left side: number + title */}
                     <div className="flex items-start gap-4">
-                        <p className="text-gray-500">{row.number}</p>
+                        <p className="text-secondary">{row.number}</p>
+
                         <h3 className="leading-snug break-words">{row.title}</h3>
                     </div>
 

@@ -50,13 +50,30 @@ export default function FAQSection() {
                 {/* Header - Exact match */}
                 <motion.div
                     className="text-center mb-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
+                    initial={{ opacity: 0, y: 30, rotate: 3 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                    transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 60,
+                        mass: 1.5,
+                        delay: 0.1,
+                    }}
+                    viewport={{ once: true, amount: 0.5 }} // Only runs once when 50% in view
                 >
                     <h2 className="text-4xl md:text-5xl font-normal text-gray-800 tracking-wide leading-tight">
-                        FREQUENTLY<br />ASKED QUESTIONS
+                        {/* Custom animation for "FREQUENT" */}
+                        <motion.span
+                        >
+                            FREQUENT
+                        </motion.span>
+                        <br />
+                        {/* Custom animation for "ASKED QUESTIONS" */}
+                        <motion.span
+
+                        >
+                            ASKED QUESTIONS
+                        </motion.span>
                     </h2>
                 </motion.div>
 
@@ -66,7 +83,7 @@ export default function FAQSection() {
                         <motion.div
                             key={item.id}
                             className="border border-gray-800 bg-transparent"
-                            style={{ borderWidth: '1px' }}
+                            style={{ borderWidth: "1px" }}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -77,19 +94,17 @@ export default function FAQSection() {
                                 className="w-full px-6 py-5 text-left flex items-center justify-between bg-transparent hover:bg-black/5 transition-colors duration-200"
                                 onClick={() => toggleItem(item.id)}
                             >
-                                <span className="text-gray-800 font-normal text-lg pr-4 leading-relaxed">
-                                    {item.question}
-                                </span>
+                                <span className="text-gray-800 font-normal text-lg pr-4 leading-relaxed">{item.question}</span>
 
                                 {/* X Icon - Exact match */}
                                 <motion.div
                                     className="flex-shrink-0 w-5 h-5 flex items-center justify-center"
                                     animate={{
-                                        rotate: openItems.has(item.id) ? 0 : 45
+                                        rotate: openItems.has(item.id) ? 0 : 45,
                                     }}
                                     transition={{
                                         duration: 0.3,
-                                        ease: "easeInOut"
+                                        ease: "easeInOut",
                                     }}
                                 >
                                     <div className="relative w-4 h-4">
@@ -104,19 +119,27 @@ export default function FAQSection() {
                             <AnimatePresence>
                                 {openItems.has(item.id) && (
                                     <motion.div
-
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{
+                                            duration: 0.4,
+                                            ease: "easeInOut",
+                                            height: { duration: 0.4 },
+                                            opacity: { duration: 0.3 },
+                                        }}
                                         className="overflow-hidden"
                                     >
                                         {/* Separator line */}
-                                        <div className="border-t border-gray-800 mx-6" style={{ borderWidth: '1px' }} />
+                                        <div className="border-t border-gray-800 mx-6" style={{ borderWidth: "1px" }} />
 
                                         <div className="px-6 py-5">
                                             <motion.p
                                                 className="text-gray-700 leading-relaxed text-lg"
-                                                initial={{ opacity: 0, y: 15 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.4 }}
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0 }}
+                                                transition={{ duration: 0.3, delay: 0.1 }}
                                             >
                                                 {item.answer}
                                             </motion.p>

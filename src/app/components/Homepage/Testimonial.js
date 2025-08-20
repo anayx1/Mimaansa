@@ -7,7 +7,7 @@ const testimonialsData = [
         id: 1,
         name: "Sarah Johnson",
         role: "UK",
-        content: "This platform has completely transformed how we manage our projects. The efficiency gains are remarkable.",
+        content: "This platform has completely transformed how we manage our projects. The gains are remarkable.",
         avatar: "/user.avif"
     },
     {
@@ -166,7 +166,7 @@ function TestimonialCard({ testimonial }) {
                     </p>
                 </div>
             </div>
-            <blockquote className="text-gray-700 text-sm md:text-base leading-relaxed mt-4">
+            <blockquote className="text-gray-700 text-sm md:text-base leading-relaxed">
                 "{testimonial.content}"
             </blockquote>
         </div>

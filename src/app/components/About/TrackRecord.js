@@ -25,7 +25,8 @@ const TrackRecord = () => {
                 </div>
 
                 {/* Description */}
-                <p className="max-w-3xl text-center text-base sm:text-lg text-gray-700 leading-relaxed px-4">
+                <p className="max-w-3xl text-center text-secondary px-4 py-10">
+
                     Over the years, Mimaansa has built a strong track record for quality and
                     reliability, delivering hundreds of product orders worldwide. From
                     boutique brands to large retail chains, we maintain strict quality

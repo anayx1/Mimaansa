@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
 import { ArrowDown, CircleArrowDown } from 'lucide-react'
@@ -11,10 +11,26 @@ const Hero = () => {
         offset: ["start start", "end start"]
     })
 
-    // Left image slides to the left on scroll
-    const leftImageX = useTransform(scrollYProgress, [0.2, 0.8], ['0%', '-70%'])
-    // Right image slides to the right on scroll
-    const rightImageX = useTransform(scrollYProgress, [0.2, 0.8], ['0%', '70%'])
+
+    // Apply smoothing with useSpring
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,   // responsiveness
+        damping: 30,      // how much it resists oscillation
+        mass: 0.8
+    })
+
+
+
+    // // Left image slides to the left on scroll
+    // const leftImageX = useTransform(scrollYProgress, [0.2, 0.8], ['0%', '-70%'])
+    // // Right image slides to the right on scroll
+    // const rightImageX = useTransform(scrollYProgress, [0.2, 0.8], ['0%', '70%'])
+
+    // Left image slides left smoothly
+    const leftImageX = useTransform(smoothProgress, [0.1, 0.8], ['0%', '-70%'])
+    // Right image slides right smoothly
+    const rightImageX = useTransform(smoothProgress, [0.1, 0.8], ['0%', '70%'])
+
 
     // Icon opacity: fully visible at top, gone after scrollYProgress > 0.01
     const iconOpacity = useTransform(scrollYProgress, [0, 0.01], [1, 0])
@@ -58,28 +74,35 @@ const Hero = () => {
                 />
             </motion.div>
 
-            {/* Floating Scroll Icon */}
             <motion.div
                 style={{ opacity: iconOpacity }}
-                className="absolute z-20 left-1/2 -translate-x-1/2 bottom-10 pointer-events-none"
+                className="absolute z-20 left-1/2 -translate-x-1/2 bottom-25 pointer-events-none"
                 initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                    type: "spring",
-                    stiffness: 160,
-                    damping: 16,
-                    duration: 1.2,
-                    delay:1
-                }}
+                animate={{ opacity: 1 }}   // fade in once
+                transition={{ duration: 1, delay: 1 }} // control fade in
                 exit={{ opacity: 0, y: 60, transition: { type: "spring" } }}
             >
-                <div className="flex items-center justify-center " style={{ width: 80, height: 80 }}>
-                    {/* <CircleArrowDown size={40} strokeWidth={1} className="text-black bg-white rounded-full" /> */}
-                    <span className='bg-white rounded-full p-2'>
-                        <ArrowDown size={24} strokeWidth={1} className="text-black rounded-full" />
-                    </span>
-                </div>
+                {/* Looping bounce */}
+                <motion.div
+                    animate={{ y: [0, 20] }}
+                    transition={{
+                        repeat: Infinity,
+                        repeatType: "mirror",
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 50,
+                        mass: 1,
+                    }}
+                >
+                    <div className="flex items-center justify-center" style={{ width: 80, height: 80 }}>
+                        <span className="bg-white rounded-full p-2">
+                            <ArrowDown size={24} strokeWidth={1} className="text-black rounded-full" />
+                        </span>
+                    </div>
+                </motion.div>
             </motion.div>
+
+
 
         </section>
     )

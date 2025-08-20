@@ -3,17 +3,27 @@ import React from 'react'
 
 
 const images = [
-    "/products/apperal/apperal.jpg", "/products/apperal/apperal2.jpg",
-    "/products/apperal/apperal3.jpg", "/products/apperal/apperal4.jpg",
-    "/products/apperal/apperal5.jpg", "/products/apperal/apperal6.jpg",
-    "/products/apperal/apperal7.jpg", "/products/apperal/apperal8.jpg",
+    "/products/apperal/apperal5.jpg",
+    "/products/apperal/apperal2.jpg",
+    "/products/apperal/apperal7.jpg",
+    "/products/apperal/apperal3.jpg",
+    "/products/apperal/apperal6.jpg",
+    "/products/apperal/apperal8.jpg",
+    "/products/apperal/apperal.jpg",
+    "/products/apperal/apperal4.jpg",
 ]
+
 const images2 = [
-    "/products/apperal/apperal8.jpg", "/products/apperal/apperal9.jpg",
-    "/products/apperal/apperal10.jpg", "/products/apperal/apperal11.jpg",
-    "/products/apperal/apperal12.jpg", "/products/apperal/apperal13.jpg",
-    "/products/apperal/apperal14.jpg", "/products/apperal/apperal15.jpg",
+    "/products/apperal/apperal12.jpg",
+    "/products/apperal/apperal9.jpg",
+    "/products/apperal/apperal15.jpg",
+    "/products/apperal/apperal11.jpg",
+    "/products/apperal/apperal14.jpg",
+    "/products/apperal/apperal10.jpg",
+    "/products/apperal/apperal13.jpg",
+    "/products/apperal/apperal8.jpg",
 ]
+
 
 export default function SecondSection() {
     return (
@@ -33,6 +43,7 @@ export default function SecondSection() {
                 <div className="w-full overflow-hidden pt-10 relative">
                     <div className="flex animate-marquee">
                         {[...images, ...images].map((image, index) => (
+
                             <div
                                 key={index}
                                 className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"

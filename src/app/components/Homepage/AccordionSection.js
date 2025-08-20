@@ -68,28 +68,24 @@ const AccordionSection = () => {
             <section className="min-h-screen bg-primary py-20 flex items-center justify-center">
                 <div className="container mx-auto px-8 w-[95%]">
                     {/* Header */}
-                    <div className="text-center mb-16">
+                    <motion.div initial={{ opacity: 0, scale: 1, y: 40 }}
+                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                        transition={{ type: "spring", stiffness: 70, damping: 20, delay: 0.2 }}
+                        viewport={{ once: true }}
+                        className="text-center mb-16">
                         <motion.h2
-                            className=""
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            viewport={{ once: true }}
                         >
                             WHY CHOOSE US?
-
                         </motion.h2>
+
                         <motion.p
                             className="text-2xl text-secondary/80 mx-auto"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            viewport={{ once: true }}
+
                         >
                             Choosing Mimaansa as your India sourcing partner means you gain.
-
                         </motion.p>
-                    </div>
+                    </motion.div>
+
 
                     {/* Main Content Grid */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start w-full">

@@ -56,7 +56,7 @@ const OurStorySection = () => {
                         viewport={{ once: true }}
                     >
                         <motion.h2
-                            className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold leading-tight text-center lg:text-left"
+                            className="text-center lg:text-left"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
@@ -113,7 +113,7 @@ const OurStorySection = () => {
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     >
-                        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+                        <div className="relative h-[300px] sm:h-[400px] md:h-[650px] lg:h-[700px] overflow-hidden">
                             {isLoading && <div className="absolute inset-0 bg-gray-200 animate-pulse" />}
 
                             <div className="relative w-full h-full">

@@ -34,7 +34,8 @@ const FabricsImageSection = () => {
     ]
 
     return (
-        <section className="min-h-screen bg-primary py-16 sm:py-20 md:mt-100 md:mb-10 overflow-x-hidden">
+        <section className="min-h-screen bg-primary py-20 sm:py-20 md:mt-110 md:mb-10 overflow-x-hidden">
+
             <div className="container mx-auto px-8 w-[90%]">
                 {/* Header */}
                 <motion.div className="text-center mb-16"

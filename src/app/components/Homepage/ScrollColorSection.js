@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import CountUp from '../Counter'
 import Image from 'next/image'
 import Button from '../Button'
+import Link from 'next/link'
 
 const stats = [
     { value: 10, suffix: "+", label: "Years of Operations" },
@@ -78,7 +79,7 @@ const LetterColorChange = () => {
 
 
             {/* Stats Section */}
-            <section className="flex items-center justify-center py-10 border-t border-b border-gray-200">
+            <section className="flex items-center justify-center py-10 border-t border-b border-gray-200 max-w-7xl md:mb-20 ">
                 <div className="mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16">
                         {stats.map((stat, index) => (
@@ -137,9 +138,11 @@ const LetterColorChange = () => {
                             <div className='grid grid-cols-1 sm:grid-cols-2 mt-10 sm:mt-20 gap-6 sm:gap-0'>
                                 <div className='flex justify-left items-center text-white text-lg sm:text-xl'>
 
-                                    <Button >
-                                        About us
-                                    </Button>
+                                    <Link href='/about-us'>
+                                        <Button >
+                                            About us
+                                        </Button>
+                                    </Link>
                                 </div>
 
 

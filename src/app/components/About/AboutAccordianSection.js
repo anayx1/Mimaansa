@@ -44,8 +44,8 @@ const AboutAccordianSection = () => {
     }
 
     return (
-        <section className="min-h-screen bg-primary py-10 sm:py-16 lg:py-20 flex items-center justify-center overflow-x-hidden">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <section className="min-h-screen bg-primary py-20 sm:py-16 lg:py-20 flex items-center justify-center overflow-x-hidden">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full py-10">
                 {/* Header */}
                 <div className="text-center mb-10 sm:mb-14 lg:mb-16">
                     <motion.h2

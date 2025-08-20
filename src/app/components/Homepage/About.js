@@ -1,4 +1,6 @@
 import React from 'react'
+import { ButtonDark } from '../Button'
+import Link from 'next/link'
 
 const About = () => {
     return (
@@ -8,15 +10,21 @@ const About = () => {
                     MIMAANSA
                 </h1>
                 <p className='text-base sm:text-lg md:text-xl text-gray-700 mt-4'>
-                    Meaning “deep reflection” or “critical inquiry,” 
-                    <br className='hidden md:block' /> 
-                    Mimaansa reflects a commitment to ethical 
+                    Meaning “deep reflection” or “critical inquiry,”
+                    <br className='hidden md:block' />
+                    Mimaansa reflects a commitment to ethical
                     <br className='hidden md:block' />
                     sourcing and thoughtful, value-driven partnerships.
                 </p>
-                <button className="bg-[var(--color-secondary)] text-white py-3 px-6 rounded mt-10 hover:opacity-90 transition">
+                {/* <button className="bg-[var(--color-secondary)] text-white py-3 px-6 rounded mt-10 hover:opacity-90 transition">
                     Explore More
-                </button>
+                </button> */}
+                <Link href='/about-us'>
+                    <ButtonDark className='mt-5 font-navbar font-medium text-sm'>
+                        Explore More
+                    </ButtonDark>
+                </Link>
+
             </div>
         </section>
     )

@@ -45,7 +45,7 @@ export default function ContactSection() {
     };
 
     return (
-        <section className="bg-[#faf9f6]">
+        <section className="bg-primary">
             <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
                 {/* Left image */}
                 <div className="relative w-full h-[500px] md:h-auto">
@@ -60,7 +60,7 @@ export default function ContactSection() {
 
                 {/* Right form */}
                 <div className="p-6 md:p-12 flex flex-col justify-center">
-                    <h2 className="text-2xl md:text-6xl mb-6">
+                    <h2 className="text-2xl md:text-5xl mb-6">
                         Let's work on your next big thing.
                     </h2>
 
@@ -100,7 +100,7 @@ export default function ContactSection() {
                                 <option value="lifestyleaccessories">Lifestyle Accessories</option>
                             </select>
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none ">
-                                <ChevronDown className="text-gray-600"/>
+                                <ChevronDown className="text-gray-600" />
                             </span>
                         </div>
                         {errors.productCategory && (
@@ -118,7 +118,7 @@ export default function ContactSection() {
                                 <option value="supplier">Supplier</option>
                             </select>
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none ">
-                                <ChevronDown className="text-gray-600"/>
+                                <ChevronDown className="text-gray-600" />
                             </span>
                         </div>
                         {errors.role && (

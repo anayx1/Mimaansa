@@ -21,9 +21,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
+        {/* <SmoothScroll> */}
         <AnimatedNavbar />
         {children}
         <Footer />
+        {/* </SmoothScroll> */}
       </body>
     </html>
   );

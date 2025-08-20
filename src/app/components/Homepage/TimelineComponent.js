@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
@@ -7,35 +7,39 @@ const timelineData = [
     {
         id: "01",
         title: "INITIAL CONSULTATION",
-        description: "We discuss your product needs, design ideas, and target prices."
+        description: "We discuss your product needs, design ideas, and target prices.",
     },
     {
         id: "02",
         title: "SUPPLIER MATCHING",
-        description: "We shortlist trusted manufacturers that best fit your requirements (materials, scale, certifications) and obtain sample prototypes."
+        description:
+            "We shortlist trusted manufacturers that best fit your requirements (materials, scale, certifications) and obtain sample prototypes.",
     },
     {
         id: "03",
         title: "QUOTATION & NEGOTIATION",
-        description: "We present pricing from suppliers and negotiate terms to get you the best value while maintaining quality."
+        description:
+            "We present pricing from suppliers and negotiate terms to get you the best value while maintaining quality.",
     },
     {
         id: "04",
         title: "PRODUCTION & ORDER MANAGEMENT",
-        description: "Once you confirm, we oversee the entire sampling and production process, providing regular updates and addressing any issues promptly to keep everything on track."
+        description:
+            "Once you confirm, we oversee the entire sampling and production process, providing regular updates and addressing any issues promptly to keep everything on track.",
     },
     {
         id: "05",
         title: "QUALITY ASSURANCE & DELIVERY",
-        description: "Our inspectors perform quality control checks during and after production. We ensure compliance with your standards and arrange secure packaging, shipping, and all export documentation for a smooth delivery."
-    }
+        description:
+            "Our inspectors perform quality control checks during and after production. We ensure compliance with your standards and arrange secure packaging, shipping, and all export documentation for a smooth delivery.",
+    },
 ]
 
 export default function TimelineComponent() {
     const containerRef = useRef(null)
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ["start 0.3", "end 0.7"]
+        offset: ["start 0.3", "end 0.7"],
     })
 
     const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
@@ -61,21 +65,21 @@ export default function TimelineComponent() {
 
                 {/* Timeline */}
                 <div ref={containerRef} className="relative">
-                    {/* Desktop Timeline Line */}
-                    <div className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-gray-300 h-full hidden md:block">
-                        <motion.div
-                            className="w-full bg-gray-800 origin-top"
-                            style={{ height: lineHeight }}
-                        />
-                    </div>
+                    {/* Static background lines */}
+                    <div className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-gray-300 h-full hidden md:block" />
+                    <div className="absolute left-6 transform -translate-x-0.5 w-0.5 bg-gray-300 h-full md:hidden" />
 
-                    {/* Mobile Timeline Line */}
-                    <div className="absolute left-6 transform -translate-x-0.5 w-0.5 bg-gray-300 h-full md:hidden">
-                        <motion.div
-                            className="w-full bg-gray-800 origin-top"
-                            style={{ height: lineHeight }}
-                        />
-                    </div>
+                    {/* Desktop animated line */}
+                    <motion.div
+                        className="absolute left-1/2 transform -translate-x-0.5 w-0.5 bg-gray-800 hidden md:block origin-top"
+                        style={{ height: lineHeight }}
+                    />
+
+                    {/* Mobile animated line */}
+                    <motion.div
+                        className="absolute left-6 transform -translate-x-0.5 w-0.5 bg-gray-800 md:hidden origin-top"
+                        style={{ height: lineHeight }}
+                    />
 
                     {/* Timeline Items */}
                     <div className="space-y-15 md:space-y-15">
@@ -97,27 +101,24 @@ export default function TimelineComponent() {
 }
 
 function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
-  // Set threshold for each item in the range [0, 1]
-  // For the last item, extend the threshold to cover the final scroll range
-  const itemThreshold =
-    index === totalItems - 1
-      ? 1
-      : index / (totalItems - 1)
+    // Set threshold for each item in the range [0, 1]
+    // For the last item, extend the threshold to cover the final scroll range
+    const itemThreshold = index === totalItems - 1 ? 1 : index / (totalItems - 1)
 
-  // Define the active range for this item
-  const activeRangeStart = Math.max(0, itemThreshold - (index === totalItems - 1 ? 0.25 : 0.1))
-  const activeRangeEnd = itemThreshold
+    // Define the active range for this item
+    const activeRangeStart = Math.max(0, itemThreshold - (index === totalItems - 1 ? 0.25 : 0.1))
+    const activeRangeEnd = itemThreshold
 
-  // Use useTransform to create a smooth active state based on scrollYProgress within active range
-  const isActive = useTransform(scrollYProgress, [activeRangeStart, activeRangeEnd], [0, 1])
+    // Use useTransform to create a smooth active state based on scrollYProgress within active range
+    const isActive = useTransform(scrollYProgress, [activeRangeStart, activeRangeEnd], [0, 1])
 
-  // Animate colors and opacity based on isActive
-  const textOpacity = useTransform(isActive, [0, 1], [0.4, 1])
-  const titleColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
-  const descriptionColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(75, 85, 99)"])
-  const numberColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(107, 114, 128)"])
-  const dotScale = useTransform(isActive, [0, 1], [0.8, 1.2])
-  const dotColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
+    // Animate colors and opacity based on isActive
+    const textOpacity = useTransform(isActive, [0, 1], [0.4, 1])
+    const titleColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
+    const descriptionColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(75, 85, 99)"])
+    const numberColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(107, 114, 128)"])
+    const dotScale = useTransform(isActive, [0, 1], [0.8, 1.2])
+    const dotColor = useTransform(isActive, [0, 1], ["rgb(156, 163, 175)", "rgb(31, 41, 55)"])
 
     return (
         <motion.div
@@ -129,7 +130,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
         >
             {/* Desktop Layout */}
             <div className="hidden md:block">
-                <div className="flex items-center relative">
+                <div className="flex items-start relative">
                     {isEven ? (
                         <>
                             {/* Content Left */}
@@ -142,38 +143,33 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                                     viewport={{ once: true }}
                                     style={{ opacity: textOpacity }}
                                 >
-                                    <motion.span
-                                        className="text-sm font-medium mb-3 block tracking-wider"
-                                        style={{ color: numberColor }}
-                                    >
+                                    <motion.span className="text-sm font-medium mb-3 block tracking-wider" style={{ color: numberColor }}>
                                         {item.id}
                                     </motion.span>
                                     <motion.h3
-                                        className="text-2xl lg:text-xl mb-4 tracking-wide leading-tight"
+                                        className=" leading-tight"
+
                                         style={{ color: titleColor }}
                                     >
                                         {item.title}
                                     </motion.h3>
-                                    <motion.p
-                                        className="leading-relaxed text-base lg:text-lg"
-                                        style={{ color: descriptionColor }}
-                                    >
+                                    <motion.p className="leading-relaxed text-base mt-3 " style={{ color: descriptionColor }}>
                                         {item.description}
                                     </motion.p>
                                 </motion.div>
                             </div>
 
-                            {/* Timeline Dot */}
                             <motion.div
                                 className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                                style={{
+                                    top: "2px", // Align with step number text
+                                    backgroundColor: dotColor,
+                                    scale: dotScale,
+                                }}
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
                                 transition={{ duration: 0.4, delay: 0.3 }}
                                 viewport={{ once: true }}
-                                style={{
-                                    backgroundColor: dotColor,
-                                    scale: dotScale
-                                }}
                             />
 
                             {/* Empty Right */}
@@ -184,17 +180,17 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                             {/* Empty Left */}
                             <div className="w-1/2" />
 
-                            {/* Timeline Dot */}
                             <motion.div
                                 className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                                style={{
+                                    top: "2px", // Align with step number text
+                                    backgroundColor: dotColor,
+                                    scale: dotScale,
+                                }}
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
                                 transition={{ duration: 0.4, delay: 0.3 }}
                                 viewport={{ once: true }}
-                                style={{
-                                    backgroundColor: dotColor,
-                                    scale: dotScale
-                                }}
                             />
 
                             {/* Content Right */}
@@ -207,22 +203,16 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                                     viewport={{ once: true }}
                                     style={{ opacity: textOpacity }}
                                 >
-                                    <motion.span
-                                        className="text-sm font-medium mb-3 block tracking-wider"
-                                        style={{ color: numberColor }}
-                                    >
+                                    <motion.span className="text-sm font-medium mb-3 block tracking-wider" style={{ color: numberColor }}>
                                         {item.id}
                                     </motion.span>
                                     <motion.h3
-                                        className="text-2xl lg:text-3xl font-light mb-4 tracking-wide leading-tight"
+                                        className=" leading-tight"
                                         style={{ color: titleColor }}
                                     >
                                         {item.title}
                                     </motion.h3>
-                                    <motion.p
-                                        className="leading-relaxed text-base lg:text-lg"
-                                        style={{ color: descriptionColor }}
-                                    >
+                                    <motion.p className="leading-relaxed text-base mt-3 " style={{ color: descriptionColor }}>
                                         {item.description}
                                     </motion.p>
                                 </motion.div>
@@ -235,17 +225,17 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
             {/* Mobile Layout */}
             <div className="md:hidden">
                 <div className="flex items-start relative">
-                    {/* Timeline Dot */}
                     <motion.div
-                        className="absolute left-6 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm mt-1"
+                        className="absolute left-6 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                        style={{
+                            top: "2px", // Align with step number text
+                            backgroundColor: dotColor,
+                            scale: dotScale,
+                        }}
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
                         transition={{ duration: 0.4, delay: 0.3 }}
                         viewport={{ once: true }}
-                        style={{
-                            backgroundColor: dotColor,
-                            scale: dotScale
-                        }}
                     />
 
                     {/* Content */}
@@ -257,10 +247,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                         viewport={{ once: true }}
                         style={{ opacity: textOpacity }}
                     >
-                        <motion.span
-                            className="text-sm font-medium mb-3 block tracking-wider"
-                            style={{ color: numberColor }}
-                        >
+                        <motion.span className="text-sm font-medium mb-3 block tracking-wider" style={{ color: numberColor }}>
                             {item.id}
                         </motion.span>
                         <motion.h3
@@ -269,10 +256,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                         >
                             {item.title}
                         </motion.h3>
-                        <motion.p
-                            className="leading-relaxed text-sm sm:text-base"
-                            style={{ color: descriptionColor }}
-                        >
+                        <motion.p className="leading-relaxed text-sm sm:text-base" style={{ color: descriptionColor }}>
                             {item.description}
                         </motion.p>
                     </motion.div>

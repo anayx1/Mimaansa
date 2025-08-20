@@ -38,11 +38,11 @@ export default function ServicesIntro() {
   };
 
   return (
-    <section className="bg-secondary px-4 md:px-8 lg:px-16 min-h-screen text-center py-20">
-      <div className="max-w-5xl mx-auto py-20">
+    <section className="bg-secondary px-4 md:px-4 lg:px-6 min-h-screen text-center py-20">
+      <div className="section mx-auto py-20">
         {hasMounted && (
           <motion.span
-            className="text-center text-primary "
+            className="text-center text-primary/80 "
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -52,7 +52,7 @@ export default function ServicesIntro() {
               <motion.p
                 key={i}
                 variants={wordVariants}
-                className="inline-block mr-2 text-primary text-center text-4xl leading-relaxed "
+                className="inline-block mr-2 text-primary/80 text-center text-2xl md:text-5xl leading-relaxed "
               >
                 {word}
               </motion.p>
