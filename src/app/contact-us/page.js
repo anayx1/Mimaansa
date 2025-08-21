@@ -14,7 +14,7 @@ const schema = Yup.object().shape({
     phone: Yup.string().required("Phone number is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     company: Yup.string().required("Company name is required"),
-    website: Yup.string().url("Invalid URL").required("Website URL is required"),
+    // website: Yup.string().url("Invalid URL").required("Website URL is required"),
     country: Yup.string().required("Country is required"),
     productCategory: Yup.string().required("Product category is required"),
     role: Yup.string().required("Please select who you are"),
@@ -38,11 +38,23 @@ export default function ContactSection() {
 
     const consentValue = watch("consent");
 
-    const onSubmit = (data) => {
-        console.log("Form Submitted: ", data);
-        alert("Form submitted successfully!");
-        reset();
+    const onSubmit = async (data) => {
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (!res.ok) throw new Error("Request failed");
+            alert("Form submitted successfully!");
+            reset();
+        } catch (e) {
+            console.error(e);
+            alert("Error submitting form");
+        }
     };
+
 
     return (
         <section className="bg-primary">

@@ -48,11 +48,17 @@ const AnimatedNavbar = () => {
 
   const handleMobileMenuItemClick = (item, index) => {
     if (item.subMenu) {
-      // Toggle mobile submenu
-      setOpenMobileSubmenu(openMobileSubmenu === index ? null : index)
+      const newOpenSubmenu = openMobileSubmenu === index ? null : index
+      setOpenMobileSubmenu(newOpenSubmenu)
+      // Clear hover state when mobile submenu changes
+      if (newOpenSubmenu !== null) {
+        setHoveredItem(null)
+      }
     } else {
       // Close navbar for regular menu items
       setIsMenuOpen(false)
+      setOpenMobileSubmenu(null)
+      setHoveredItem(null)
     }
   }
 
@@ -68,7 +74,7 @@ const AnimatedNavbar = () => {
         { title: "LIFESTYLE ACCESSORIES", link: "/lifestyle-accessories" },
         { title: "HOME FURNISHING", link: "/home-furnishing" },
         { title: "FABRICS", link: "/fabrics" },
-      ]
+      ],
     },
     { menu: "BLOGS", link: "/blogs" },
     { menu: "CONTACT", link: "/contact" },
@@ -82,8 +88,8 @@ const AnimatedNavbar = () => {
     { title: "YOUTUBE", href: "https://youtube.com" },
     { title: "LINKEDIN", href: "https://linkedin.com" },
     { title: "TERMS & CONDITIONS", href: "/terms" },
-    { title: "PRIVACY POLICY", href: "/privacy" }
-  ];
+    { title: "PRIVACY POLICY", href: "/privacy" },
+  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -152,13 +158,13 @@ const AnimatedNavbar = () => {
           <div className="flex items-center justify-between px-6 py-4 w-full">
             {/* Logo */}
             <div className="h-auto">
-              <span className="text-3xl font-navbar tracking-wide">MIMAANSA</span>
+              <span className="text-xl sm:text-2xl lg:text-3xl font-navbar tracking-wide">MIMAANSA</span>
             </div>
 
             {/* Hamburger Menu Button - 2 lines */}
             <button
               onClick={toggleMenu}
-              className="relative w-8 h-8 flex flex-col justify-center items-center focus:outline-none z-[10001] mr-8"
+              className="relative w-8 h-8 flex flex-col justify-center items-center focus:outline-none z-[10001] mr-2 sm:mr-4 lg:mr-8"
               aria-label="Toggle menu"
             >
               <motion.span
@@ -221,22 +227,24 @@ const AnimatedNavbar = () => {
               </div>
 
               {/* Main Content */}
-              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-8 p-6 lg:p-12 overflow-auto">
+              <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-12 overflow-auto">
                 {/* Menu Items */}
                 <div className="lg:col-span-1">
-                  <h2 className="text-sm font-medium text-white mb-8 md:ml-5">MENU</h2>
+                  <h2 className="text-sm font-medium text-white mb-4 sm:mb-6 lg:mb-8 ml-2 sm:ml-3 md:ml-5 text-left">
+                    MENU
+                  </h2>
                   {/* Animate container */}
                   <motion.div
-                    className="space-y-3 relative z-[10002]"
+                    className="space-y-2 sm:space-y-3 relative z-[10002]"
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
                   >
                     {menuItems.map((item, index) => (
                       <motion.div key={item.menu} className="relative group" variants={itemVariants}>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2 sm:gap-4 justify-start lg:justify-start">
                           {/* HR line - hidden by default, expands on hover */}
-                          <hr className="w-0 group-hover:w-20 h-[1px] bg-white transition-all duration-500 pointer-events-none" />
+                          <hr className="w-0 group-hover:w-10 sm:group-hover:w-16 lg:group-hover:w-20 h-[1px] bg-white transition-all duration-500 pointer-events-none hidden lg:block" />
 
                           <div
                             className="relative"
@@ -244,13 +252,13 @@ const AnimatedNavbar = () => {
                             onMouseLeave={() => item.subMenu && handleMouseLeave()}
                           >
                             <motion.div
-                              className="relative flex items-center gap-4"
-                              whileHover={{ x: 20 }}
+                              className="relative flex items-center gap-2 sm:gap-4 justify-start lg:justify-start"
+                              whileHover={{ x: window.innerWidth >= 1024 ? 10 : 0 }}
                               transition={{ duration: 0.3, ease: "easeOut" }}
                             >
                               {item.subMenu ? (
                                 // For items with submenu, use button on mobile, Link on desktop
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2 sm:gap-4">
                                   <Link
                                     href={item.link}
                                     className="hidden lg:block text-4xl lg:text-5xl font-light text-white transition-colors relative"
@@ -260,9 +268,11 @@ const AnimatedNavbar = () => {
 
                                   <button
                                     onClick={() => handleMobileMenuItemClick(item, index)}
-                                    className="lg:hidden block text-4xl lg:text-5xl font-light text-white transition-colors relative"
+                                    className="lg:hidden block text-4xl lg:text-5xl font-light text-white transition-colors relative text-left"
                                   >
-                                    <span className="text-7xl font-light text-white">{item.menu}</span>
+                                    <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white">
+                                      {item.menu}
+                                    </span>
                                   </button>
                                 </div>
                               ) : (
@@ -270,21 +280,23 @@ const AnimatedNavbar = () => {
                                 <Link
                                   href={item.link}
                                   onClick={() => handleMobileMenuItemClick(item, index)}
-                                  className="block text-4xl lg:text-5xl font-light text-white transition-colors relative"
+                                  className="block text-4xl lg:text-5xl font-light text-white transition-colors relative text-left lg:text-left"
                                 >
-                                  <span className="text-7xl font-light text-white">{item.menu}</span>
+                                  <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-white">
+                                    {item.menu}
+                                  </span>
                                 </Link>
                               )}
 
                               {item.subMenu && (
                                 <motion.svg
-                                  width="32"
-                                  height="32"
+                                  width="24"
+                                  height="24"
                                   viewBox="0 0 24 24"
                                   fill="none"
-                                  className="text-white"
+                                  className="text-white sm:w-8 sm:h-8"
                                   animate={{
-                                    rotate: (hoveredItem === index || openMobileSubmenu === index) ? 180 : 0
+                                    rotate: hoveredItem === index || openMobileSubmenu === index ? 180 : 0,
                                   }}
                                   transition={{ duration: 0.3, ease: "easeOut" }}
                                 >
@@ -338,21 +350,22 @@ const AnimatedNavbar = () => {
                             </AnimatePresence>
 
                             {/* Mobile Submenu - Click Based */}
-                            <AnimatePresence>
+                            <AnimatePresence mode="wait">
                               {item.subMenu && openMobileSubmenu === index && (
                                 <motion.div
+                                  key={`mobile-submenu-${index}`}
                                   initial="hidden"
                                   animate="visible"
                                   exit="exit"
                                   variants={submenuVariants}
-                                  className="mt-4 space-y-2 lg:hidden bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-6 z-[10003]"
+                                  className="mt-3 sm:mt-4 space-y-2 lg:hidden bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 p-4 sm:p-6 z-[10003] text-left"
                                 >
                                   {item.subMenu.map((sub, subIndex) => (
                                     <motion.div key={subIndex} variants={submenuItemVariants}>
                                       <Link
                                         href={sub.link}
                                         onClick={handleSubmenuClick}
-                                        className="block text-lg font-medium text-gray-200 hover:text-white transition-all duration-200 py-3 px-4 rounded-lg hover:bg-white/10"
+                                        className="block text-base sm:text-lg font-medium text-gray-200 hover:text-white transition-all duration-200 py-2 sm:py-3 px-3 sm:px-4 rounded-lg hover:bg-white/10 text-left"
                                       >
                                         {sub.title}
                                       </Link>
@@ -368,66 +381,81 @@ const AnimatedNavbar = () => {
                   </motion.div>
                 </div>
 
-                {/* Office Address */}
-                <div className="flex-col justify-evenly flex ">
-                  <div className="lg:col-span-1 flex flex-col lg:flex-row justify-between">
-                    <div className="lg:col-span-1 mb-8 lg:mb-0">
+                {/* Office Address & Contact Info */}
+                <div className="flex-col justify-evenly flex">
+                  <div className="lg:col-span-1 flex flex-col space-y-6 sm:space-y-8 lg:space-y-0 lg:flex-row justify-between">
+                    <div className="lg:col-span-1 mb-0 lg:mb-0 text-left lg:text-left">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
                       >
-                        <h2 className="text-xl font-medium text-gray-200 mb-8">OFFICE ADDRESS</h2>
-                        <div className="space-y-3 text-lg text-wsshite">
-                          <p className="text-gray-200 text-2xl lg:text-4xl">A-904 Kenwood</p>
-                          <p className="text-gray-200 text-2xl lg:text-4xl">Apartment</p>
-                          <p className="text-gray-200 text-2xl lg:text-4xl">Charmwood Village</p>
-                          <p className="text-gray-200 text-2xl lg:text-4xl">FARIDABAD 121009</p>
+                        <h2 className="text-base sm:text-lg lg:text-xl font-medium text-gray-200 mb-4 md:mb-4 lg:mb-8">
+                          OFFICE ADDRESS
+                        </h2>
+                        <div className="space-y-2 sm:space-y-3 text-lg text-white hidden md:block lg:block">
+                          <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl">A-904 Kenwood</p>
+                          <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl">Apartment</p>
+                          <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl">Charmwood Village</p>
+                          <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl">FARIDABAD 121009</p>
+                        </div>
+                        <div>
+                          <p className="block md:hidden lg:hidden text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl my-2">
+                            A-904 Kenwood Apartment, Charmwood Village, FARIDABAD - 121009
+                          </p>
                         </div>
                       </motion.div>
                     </div>
                     {/* Contact Info */}
-                    <div className="lg:col-span-1">
+                    <div className="lg:col-span-1 text-left lg:text-left">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
                       >
-                        <h2 className="text-sm font-medium text-gray-200 mb-8">CONTACT INFO</h2>
-                        <div className="space-y-8 text-lg">
+                        <h2 className="text-sm sm:text-base font-medium text-gray-200 mb-4 sm:mb-6 lg:mb-8">
+                          CONTACT INFO
+                        </h2>
+                        <div className="space-y-4 sm:space-y-6 lg:space-y-8 text-lg">
                           <div>
-                            <p className="text-gray-200 text-2xl lg:text-4xl mb-3">Contact:</p>
-                            <p className="text-gray-200 text-2xl lg:text-4xl">+ 91 99 1092-4032</p>
+                            <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl mb-2 sm:mb-3">
+                              Contact:
+                            </p>
+                            <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl">
+                              + 91 99 1092-4032
+                            </p>
                           </div>
                           <div>
-                            <p className="text-gray-200 text-2xl lg:text-4xl mb-3">Email:</p>
-                            <p className="text-gray-200 text-2xl lg:text-4xl">info@mimaansa.com</p>
+                            <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl mb-2 sm:mb-3">
+                              Email:
+                            </p>
+                            <p className="text-gray-200 text-lg sm:text-xl md:text-2xl lg:text-4xl break-all sm:break-normal">
+                              info@mimaansa.com
+                            </p>
                           </div>
                         </div>
                       </motion.div>
                     </div>
                   </div>
                   {/* Footer */}
-                  <div className=" pt-5">
-                    <hr className="bg-white w-[90%] h-[1px]" />
+                  <div className="pt-4 sm:pt-5 text-left lg:text-left">
+                    <hr className="bg-white w-[90%] h-[1px] mx-auto lg:mx-0" />
                     <motion.div
-                      className="flex gap-2 mt-15 flex-col lg:flex-row justify-between items-start space-y-6 lg:space-y-0"
+                      className="flex gap-2 mt-4 sm:mt-6 lg:mt-15 flex-col lg:flex-row justify-between items-center lg:items-start space-y-4 sm:space-y-6 lg:space-y-0"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.6 }}
                     >
                       {/* Social Links */}
-                      <div className="flex flex-wrap gap-3 lg:gap-6 text-sm">
+                      <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-6 text-sm justify-start lg:justify-start">
                         {socialLinks.map((link, index) => (
                           <Link
                             key={index}
                             href={link.href}
-                            className="relative group text-gray-200 hover:text-gray-300 transition-colors text-base lg:text-lg font-navbar"
+                            className="relative group text-gray-200 hover:text-gray-300 transition-colors text-sm sm:text-base lg:text-lg font-navbar"
                           >
                             {link.title}
-                            <span
-                              className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full"
-                            />
+                            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full" />
                           </Link>
                         ))}
                       </div>
@@ -435,7 +463,7 @@ const AnimatedNavbar = () => {
 
                     {/* Copyright Footer */}
                     <motion.div
-                      className="mt-8 text-gray-200 text-base lg:text-lg"
+                      className="mt-4 sm:mt-6 lg:mt-8 text-gray-200 text-sm sm:text-base lg:text-lg"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.8 }}

@@ -1,4 +1,7 @@
+'use client'
 // components/CustomButton.jsx
+import { motion } from "framer-motion";
+
 export default function Button({ children, className = "" }) {
     return (
         <button
@@ -12,15 +15,24 @@ export default function Button({ children, className = "" }) {
 }
 export function ButtonDark({ children, className = "" }) {
     return (
-        <button
+        <motion.button
+            whileHover={{
+                scale: 1.0, // slight grow on hover
+                backgroundColor: "var(--color-primary)",
+                color: "var(--color-secondary)",
+            }}
+            transition={{
+                type: "spring",
+                stiffness: 300,  // controls speed
+                damping: 20,     // controls bounce
+                bounce: 0.2,     // matches your screenshot
+                duration: 0.4,   // matches time setting
+            }}
             className={`px-4 py-2 rounded bg-secondary text-primary text-lg font-medium
-        transition-all duration-200
-        border-1 border-secondary
-        hover:bg-primary
-        hover:text-secondary
- ${className}`}
+        border border-secondary
+        ${className}`}
         >
             {children}
-        </button>
+        </motion.button>
     );
 }

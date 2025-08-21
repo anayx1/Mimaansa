@@ -21,7 +21,7 @@ const LetterColorChange = () => {
         offset: ["start center", "end center"]
     })
 
-    const text = "We are India based sourcing agency and export partner that specialises in apparel, home furnishings, and lifestyle accessories. We help global brands, retailers' and wholesalers source high-quality products from India with ease and confidence. Our team manages every step – from finding the right suppliers to ensuring quality and on-time deliveries – so you can focus on growing your business."
+    const text = "We are India based sourcing agency and export partner that specialises in apparel, home furnishings, fabrics, and lifestyle accessories. We help global brands, retailers' and wholesalers source high-quality products from India with ease and confidence. Our team manages every step – from finding the right suppliers to ensuring quality and on-time deliveries – so you can focus on growing your business."
 
     // Split text into words first
     const words = text.split(' ')

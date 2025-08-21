@@ -27,7 +27,10 @@ export default function Footer() {
                             <br className="hidden md:block" />
                             manufacturing in India?
                         </h2>
+                        <Link href={'/contact-us'}>
+
                         <ButtonDark className="font-navbar">Contact Us</ButtonDark>
+                        </Link>
 
                     </motion.div>
 
