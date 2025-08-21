@@ -12,9 +12,9 @@ export default function ApparelLastSection() {
   const words = text.split(" ");
   const [hasMounted, setHasMounted] = useState(false);
 
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
+  // useEffect(() => {
+  //   setHasMounted(true);
+  // }, []);
 
   const containerVariants = {
     hidden: {},
@@ -39,9 +39,9 @@ export default function ApparelLastSection() {
   };
 
   return (
-    <section className=" px-4 text-center py-20">
+    <section className=" px-4 text-center py-10">
       <div className="max-w-6xl mx-auto py-20">
-        {hasMounted && (
+        {/* {hasMounted && (
           <motion.span
             className="text-center text-secondary "
 
@@ -60,7 +60,10 @@ export default function ApparelLastSection() {
               </motion.p>
             ))}
           </motion.span>
-        )}
+        )} */}
+        <p>
+          India's manufacturing strength spans a broad array of goods. At Mimaansa, we focus on three key product categories for our clients - leveraging the country's rich resources and craftsmanship in each area. Whether you want to develop a full fashion line, source artisanal home items, or add unique accessories to your collection, we have the expertise to make it happen.
+        </p>
       </div>
     </section>
   );

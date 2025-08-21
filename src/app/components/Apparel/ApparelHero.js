@@ -8,26 +8,25 @@ import Image from 'next/image'
 const images = [
     "/products/apperal/apperal1.jpg",
     "/products/apperal/apperal2.jpg",
-    "/products/apperal/apperal3.jpg",
-    "/products/apperal/apperal3.jpg",
-    "/products/apperal/apperal4.jpg",
-    "/products/apperal/apperal5.jpg",
-    "/products/apperal/apperal6.jpg",
-    "/products/apperal/apperal7.jpg",
     "/products/apperal/apperal8.jpg",
     "/products/apperal/apperal9.jpg",
-    "/products/apperal/apperal10.jpg",
+    "/products/apperal/apperal7.jpg",
+    "/products/apperal/apperal3.jpg",
+    "/products/apperal/apperal6.jpg",
+    "/products/apperal/apperal4.jpg",
+    "/products/apperal/apperal5.jpg",
     "/products/apperal/apperal11.jpg",
+    "/products/apperal/apperal10.jpg",
 ]
 
 const images2 = [
     "/products/apperal/apperal12.jpg",
-    "/products/apperal/apperal13.jpg",
-    "/products/apperal/apperal14.jpg",
-    "/products/apperal/apperal15.jpg",
-    "/products/apperal/apperal16.jpg",
-    "/products/apperal/apperal17.jpg",
     "/products/apperal/apperal18.jpg",
+    "/products/apperal/apperal15.jpg",
+    "/products/apperal/apperal13.jpg",
+    "/products/apperal/apperal16.jpg",
+    "/products/apperal/apperal14.jpg",
+    "/products/apperal/apperal17.jpg",
 
 ]
 

@@ -27,8 +27,9 @@ export default function LifestyleAccessoriesBuiltWithCare() {
             >
                 {/* Heading */}
                 <motion.h2
-                    style={{ fontSize: headingFontSize }}
-                    className="my-10 text-[#222] leading-tight"
+                    // style={{ fontSize: headingFontSize }}
+                    className="my-10 text-secondary leading-tight"
+
                 >
                     BUILT WITH CARE
                 </motion.h2>
