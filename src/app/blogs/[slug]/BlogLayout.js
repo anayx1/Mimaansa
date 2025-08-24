@@ -155,11 +155,11 @@ export default function BlogLayout({ blogData }) {
                     <div className="space-y-8 text-gray-800">
                         <div className="">
                             {blogData.closingTextHeading.map((heading, index) => (
-                                <h3 key={index} className="text-[30px] md:text-2xl lg:text-2xl">{heading}</h3>
+                                <h3 key={index} className="text-[30px] md:text-3xl lg:text-3xl font-medium">{heading}</h3>
                             ))}
                         </div>
                         {blogData.closingTextBody.map((body, index) => (
-                            <p key={index} className="pb-0 mb-0">{body}</p>
+                            <p key={index} className="pb-0 mb-0 text-lg md:text-2xl lg:text-2xl">{body}</p>
                         ))}
                     </div>
                 </section>

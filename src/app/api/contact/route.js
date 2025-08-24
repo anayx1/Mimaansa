@@ -4,23 +4,26 @@ import nodemailer from "nodemailer";
 
 export const runtime = "nodejs";
 
-async function sendEmail(data) {
-    try {
-        let transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: Number(process.env.SMTP_PORT),
-            secure: Number(process.env.SMTP_PORT) === 465, // true for SSL
-            auth: {
-                user: process.env.SMTP_USER,
-                pass: process.env.SMTP_PASS,
-            },
-        });
+// Get the database name from environment variable with fallback
+const DB_NAME = process.env.MONGODB_DB || "mimansaDb";
 
-        await transporter.sendMail({
-            from: `"Website Contact Form" <${process.env.SMTP_USER}>`,
-            to: process.env.NOTIFY_TO, // client email
-            subject: `New Contact Form Submission from ${data.fullName}`,
-            text: `
+async function sendEmail(data) {
+  try {
+    let transporter = nodemailer.createTransporter({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: Number(process.env.SMTP_PORT) === 465, // true for SSL
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"Website Contact Form" <${process.env.SMTP_USER}>`,
+      to: process.env.NOTIFY_TO, // client email
+      subject: `New Contact Form Submission from ${data.fullName}`,
+      text: `
 New form entry:
 
 Name: ${data.fullName}
@@ -32,60 +35,122 @@ Country: ${data.country}
 Category: ${data.productCategory}
 Role: ${data.role}
 Message: ${data.message}
-      `,
-        });
+            `,
+    });
 
-        console.log("✅ Email sent");
-    } catch (err) {
-        console.error("❌ Email error:", err);
-    }
+    console.log("✅ Email sent");
+  } catch (err) {
+    console.error("❌ Email error:", err);
+  }
 }
 
-// src/app/api/contact/route.js
+// POST - Create new contact form entry
 export async function POST(req) {
   try {
-    const body = await req.json()
-    const client = await clientPromise
-    const db = client.db("your_database_name")
-    const collection = db.collection("contacts")
+    // Validate request body
+    const body = await req.json();
 
-    const doc = { ...body, createdAt: new Date() }
-    const result = await collection.insertOne(doc)
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json(
+        { error: "Invalid request body" },
+        { status: 400 }
+      );
+    }
 
-    return new Response(JSON.stringify(result), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    })
+    // Connect to MongoDB
+    const client = await clientPromise;
+    const db = client.db(DB_NAME);
+    const collection = db.collection("contacts");
+
+    // Create document with timestamp
+    const doc = {
+      ...body,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+
+    // Insert document
+    const result = await collection.insertOne(doc);
+
+    // Send notification email (don't wait for it to complete)
+    if (body.email && body.fullName) {
+      sendEmail(body).catch(err =>
+        console.error("Email sending failed:", err)
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        insertedId: result.insertedId
+      },
+      { status: 201 }
+    );
+
   } catch (err) {
-    console.error("POST /api/contact error:", err)
-    return new Response(JSON.stringify({ error: "Failed to save contact" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    })
+    console.error("POST /api/contact error:", err);
+
+    // Return different error messages based on error type
+    if (err.name === 'MongoServerError') {
+      return NextResponse.json(
+        { error: "Database connection failed. Please try again later." },
+        { status: 503 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Failed to save contact form submission" },
+      { status: 500 }
+    );
   }
 }
 
-
-
-// Get all contact form entries
+// GET - Retrieve all contact form entries
 export async function GET() {
   try {
-    const client = await clientPromise
-const db = client.db("mimansaDb")   // ✅ use your actual DB name
-    const collection = db.collection("contacts")
+    // Connect to MongoDB
+    const client = await clientPromise;
+    const db = client.db(DB_NAME);
+    const collection = db.collection("contacts");
 
-    const contacts = await collection.find({}).sort({ createdAt: -1 }).toArray()
+    // Fetch all contacts with proper error handling
+    const contacts = await collection
+      .find({})
+      .sort({ createdAt: -1 })
+      .limit(1000) // Add reasonable limit
+      .toArray();
 
-    return new Response(JSON.stringify(contacts), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    })
+    // Convert MongoDB ObjectId to string for JSON serialization
+    const serializedContacts = contacts.map(contact => ({
+      ...contact,
+      _id: contact._id.toString()
+    }));
+
+    return NextResponse.json(serializedContacts, { status: 200 });
+
   } catch (err) {
-    console.error("GET /api/contact error:", err)
-    return new Response(JSON.stringify({ error: "Failed to fetch contacts" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    })
+    console.error("GET /api/contact error:", err);
+
+    // Return different error messages based on error type
+    if (err.name === 'MongoServerError') {
+      if (err.code === 8000) {
+        return NextResponse.json(
+          {
+            error: "Database authentication failed. Please check your credentials.",
+            details: "MongoDB Atlas authentication error"
+          },
+          { status: 503 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Database connection failed. Please try again later." },
+        { status: 503 }
+      );
+    }
+
+    return NextResponse.json(
+      { error: "Failed to fetch contact form submissions" },
+      { status: 500 }
+    );
   }
 }
-

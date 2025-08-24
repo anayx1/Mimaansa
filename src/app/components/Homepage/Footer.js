@@ -4,9 +4,17 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
 import { ButtonDark } from "../Button"
-// import Button from "./ui/button"
+import { usePathname } from "next/navigation"   // ✅ FIXED
+
 
 export default function Footer() {
+    const pathname = usePathname()
+    // Don't show footer on /admin and /login
+    if (pathname === "/admin" || pathname === "/login") {
+        return null
+    }
+
+
     return (
         <footer
             className="bg-secondary text-white min-h-screen flex flex-col justify-center relative py-10"
@@ -29,7 +37,7 @@ export default function Footer() {
                         </h2>
                         <Link href={'/contact-us'}>
 
-                        <ButtonDark className="font-navbar">Contact Us</ButtonDark>
+                            <ButtonDark className="font-navbar">Contact Us</ButtonDark>
                         </Link>
 
                     </motion.div>
@@ -61,13 +69,22 @@ export default function Footer() {
                         </motion.div>
 
                         {/* Links */}
-                        <div className="flex flex-col items-center lg:items-end justify-center gap-1 text-center lg:text-right text-white">
-                            <Link href="/terms-and-conditions" className="text-white hover:text-gray-300 transition-colors font-navbar">
-                                TERMS & CONDITIONS
-                            </Link>
-                            <Link href="/privacy-policy" className="text-white hover:text-gray-300 transition-colors font-navbar">
-                                PRIVACY POLICY
-                            </Link>
+                        <div className="flex flex-col items-center lg:items-end justify-center gap-1 text-center text-white">
+                            <span className="w-auto flex flex-col space-y-2">
+
+                                <Link href="/terms-and-conditions" className="text-white hover:text-gray-300 transition-colors font-navbar relative group">
+                                    TERMS & CONDITIONS
+                                    <span
+                                        className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full"
+                                    />
+                                </Link>
+                                <Link href="/privacy-policy" className="text-white hover:text-gray-300 transition-colors font-navbar relative group text-center">
+                                    PRIVACY POLICY
+                                    <span
+                                        className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full"
+                                    />
+                                </Link>
+                            </span>
                         </div>
                     </section>
 

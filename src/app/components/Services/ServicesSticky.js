@@ -69,7 +69,7 @@ export default function StackedCards() {
                     zIndex: i + 1,
                 }}
             >
-                <div className={`bg-white overflow-hidden flex flex-col ${containerFlexDirection} h-full w-full`}>
+                <div className={`bg-primary overflow-hidden flex flex-col ${containerFlexDirection} h-full w-full`}>
                     <div className={`relative ${contentWidth} h-64 md:h-full`}>
                         <Image src={card.img} alt={card.title} fill className="object-cover" priority={i === 0} />
                     </div>

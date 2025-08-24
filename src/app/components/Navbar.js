@@ -3,8 +3,15 @@
 import { useState, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const AnimatedNavbar = () => {
+
+  const pathname = usePathname()
+  // Don't show footer on /admin and /login
+  if (pathname === "/admin" || pathname === "/login") {
+    return null
+  }
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState(null)
   const [openMobileSubmenu, setOpenMobileSubmenu] = useState(null)
@@ -77,7 +84,7 @@ const AnimatedNavbar = () => {
       ],
     },
     { menu: "BLOGS", link: "/blogs" },
-    { menu: "CONTACT", link: "/contact" },
+    { menu: "CONTACT", link: "/contact-us" },
   ]
 
   const socialLinks = [
@@ -146,7 +153,7 @@ const AnimatedNavbar = () => {
       <motion.nav
         className="fixed top-0 left-0 right-0 z-[10000] w-full flex justify-center items-center h-12"
         animate={{
-          backgroundColor: isMenuOpen ? "#27272A" : "#ffffff",
+          backgroundColor: isMenuOpen ? "#27272A" : "#f8f6f1",
         }}
         transition={{
           duration: isMenuOpen ? 0.6 : 0.4,

@@ -160,7 +160,7 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                             </div>
 
                             <motion.div
-                                className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                                className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-5 h-5 rounded-full border-4 border-primary"
                                 style={{
                                     top: "2px", // Align with step number text
                                     backgroundColor: dotColor,
@@ -181,7 +181,8 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
                             <div className="w-1/2" />
 
                             <motion.div
-                                className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                                className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center w-5 h-5 rounded-full border-4 border-primary"
+
                                 style={{
                                     top: "2px", // Align with step number text
                                     backgroundColor: dotColor,
@@ -226,7 +227,8 @@ function TimelineItem({ item, index, isEven, scrollYProgress, totalItems }) {
             <div className="md:hidden">
                 <div className="flex items-start relative">
                     <motion.div
-                        className="absolute left-6 transform -translate-x-1/2 z-10 flex items-center justify-center w-3 h-3 rounded-full border-4 border-gray-50 shadow-sm"
+                        className="absolute left-6 transform -translate-x-1/2 z-10 flex items-center justify-center w-5 h-5 rounded-full border-4 border-primary"
+
                         style={{
                             top: "2px", // Align with step number text
                             backgroundColor: dotColor,

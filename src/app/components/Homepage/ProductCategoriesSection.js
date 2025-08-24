@@ -39,7 +39,7 @@ const ProductCategoriesSection = () => {
     ]
 
     return (
-        <section className="min-h-screen bg-primary py-16 sm:py-20 md:mt-0 md:mb-10 overflow-x-hidden">
+        <section className="min-h-screen bg-primary py-10 mt-5 md:mb-10 overflow-x-hidden">
             <div className="container mx-auto px-8 w-[90%]">
                 {/* Header */}
                 <div className="text-center mb-16">

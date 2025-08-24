@@ -31,10 +31,7 @@ const LetterColorChange = () => {
 
     return (
         <section className='min-h-screen bg-[#27272A] flex flex-col justify-center items-center'>
-            <section
-                ref={containerRef}
-                className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
-            >
+            <section ref={containerRef} className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-6xl">
                     <h1 className="text-2xl sm:text-3xl lg:text-5xl font-black text-white mb-6">
                         Ethical Sourcing. Trusted Partnership. Indian Roots.
@@ -79,9 +76,9 @@ const LetterColorChange = () => {
 
 
             {/* Stats Section */}
-            <section className="flex items-center justify-center py-10 border-t border-b border-gray-200 max-w-7xl md:mb-20 ">
-                <div className="mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16">
+            <section className="w-full flex items-center justify-center md:min-h-[70dvh]">
+                <div className="border-t border-b border-white/20 py-10">
+                    <div className=" w-full grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-8 md:gap-8 lg:gap-20">
                         {stats.map((stat, index) => (
                             <motion.div
                                 key={index}
@@ -104,7 +101,7 @@ const LetterColorChange = () => {
                                         className="text-4xl sm:text-5xl lg:text-7xl text-white"
                                     />
                                 </div>
-                                <p className="text-sm sm:text-base lg:text-xl text-gray-300 font-light leading-tight max-w-[200px] mx-auto">
+                                <p className="text-sm sm:text-base lg:text-xl text-gray-300 font-light leading-tight mx-auto">
                                     {stat.label}
                                 </p>
                             </motion.div>

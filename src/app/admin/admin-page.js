@@ -1,122 +1,299 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useCallback } from "react"
 import * as XLSX from "xlsx"
 import { ButtonDark } from "../components/Button"
+import { useRouter } from "next/navigation"
+import { DoorOpen, LogOut } from "lucide-react"
+
+// Constants
+const ITEMS_PER_PAGE_OPTIONS = [5, 10, 25, 50]
+const DEFAULT_ITEMS_PER_PAGE = 10
+const DEFAULT_SORT_FIELD = "createdAt"
+const DEFAULT_SORT_DIRECTION = "desc"
+
+// Table headers configuration
+const TABLE_HEADERS = [
+    { key: "createdAt", label: "Date" },
+    { key: "fullName", label: "Full Name" },
+    { key: "email", label: "Email" },
+    { key: "phone", label: "Phone" },
+    { key: "company", label: "Company" },
+    { key: "website", label: "Website" },
+    { key: "country", label: "Country" },
+    { key: "productCategory", label: "Category" },
+    { key: "role", label: "Role" },
+    { key: "message", label: "Message" },
+]
 
 export default function AdminPage() {
     const [entries, setEntries] = useState([])
     const [loading, setLoading] = useState(true)
-
+    const [error, setError] = useState(null)
     // Enhanced state for filtering, sorting, pagination, and search
     const [searchTerm, setSearchTerm] = useState("")
-    const [sortField, setSortField] = useState("createdAt")
-    const [sortDirection, setSortDirection] = useState("desc")
+    const [sortField, setSortField] = useState(DEFAULT_SORT_FIELD)
+    const [sortDirection, setSortDirection] = useState(DEFAULT_SORT_DIRECTION)
     const [currentPage, setCurrentPage] = useState(1)
-    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_ITEMS_PER_PAGE)
     const [selectedCategory, setSelectedCategory] = useState("")
     const [selectedCountry, setSelectedCountry] = useState("")
     const [dateRange, setDateRange] = useState({ start: "", end: "" })
 
+    const router = useRouter() // <-- Initialize router
+
+    // Logout function
+    const handleLogout = () => {
+        localStorage.removeItem("isAuthenticated") // Clear auth state
+        router.push("/login") // Redirect to login page
+    }
+
+    // Fetch entries with error handling and cleanup
     useEffect(() => {
-        fetch("/api/contact")
-            .then((r) => r.json())
-            .then((data) => setEntries(data))
-            .catch((e) => console.error(e))
-            .finally(() => setLoading(false))
+        const abortController = new AbortController()
+
+        const fetchEntries = async () => {
+            try {
+                setLoading(true)
+                setError(null)
+
+                const response = await fetch("/api/contact", {
+                    signal: abortController.signal
+                })
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+
+                const data = await response.json()
+
+                // Validate data structure
+                if (!Array.isArray(data)) {
+                    throw new Error("Invalid data format received")
+                }
+
+                setEntries(data)
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error('Failed to fetch entries:', err)
+                    setError(err.message || 'Failed to load submissions')
+                }
+            } finally {
+                if (!abortController.signal.aborted) {
+                    setLoading(false)
+                }
+            }
+        }
+
+        fetchEntries()
+
+        return () => {
+            abortController.abort()
+        }
     }, [])
 
+    // Memoized unique values for filters
+    const { uniqueCategories, uniqueCountries } = useMemo(() => {
+        const categories = [...new Set(entries.map((entry) => entry.productCategory).filter(Boolean))]
+        const countries = [...new Set(entries.map((entry) => entry.country).filter(Boolean))]
+
+        return {
+            uniqueCategories: categories.sort(),
+            uniqueCountries: countries.sort()
+        }
+    }, [entries])
+
+    // Optimized filtering and sorting with better date handling
     const filteredAndSortedEntries = useMemo(() => {
+        if (!Array.isArray(entries)) return []
+
         const filtered = entries.filter((entry) => {
-            const matchesSearch =
-                searchTerm === "" ||
-                Object.values(entry).some((value) => value?.toString().toLowerCase().includes(searchTerm.toLowerCase()))
+            // Search filter - case insensitive, handles null/undefined values
+            const matchesSearch = !searchTerm.trim() ||
+                Object.values(entry).some((value) =>
+                    value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                )
 
-            const matchesCategory = selectedCategory === "" || entry.productCategory === selectedCategory
-            const matchesCountry = selectedCountry === "" || entry.country === selectedCountry
+            // Category filter
+            const matchesCategory = !selectedCategory || entry.productCategory === selectedCategory
 
-            const matchesDateRange =
-                !dateRange.start ||
-                !dateRange.end ||
-                (entry.createdAt &&
-                    new Date(entry.createdAt) >= new Date(dateRange.start) &&
-                    new Date(entry.createdAt) <= new Date(dateRange.end))
+            // Country filter
+            const matchesCountry = !selectedCountry || entry.country === selectedCountry
+
+            // Date range filter with better date parsing
+            const matchesDateRange = !dateRange.start || !dateRange.end || (() => {
+                if (!entry.createdAt) return false
+
+                const entryDate = new Date(entry.createdAt)
+                const startDate = new Date(dateRange.start)
+                const endDate = new Date(dateRange.end)
+
+                // Set end date to end of day for inclusive comparison
+                endDate.setHours(23, 59, 59, 999)
+
+                return entryDate >= startDate && entryDate <= endDate
+            })()
 
             return matchesSearch && matchesCategory && matchesCountry && matchesDateRange
         })
 
-        // Sort entries
-        filtered.sort((a, b) => {
-            let aVal = a[sortField] || ""
-            let bVal = b[sortField] || ""
+        // Sort entries with improved sorting logic
+        return filtered.sort((a, b) => {
+            let aVal = a[sortField]
+            let bVal = b[sortField]
 
+            // Handle null/undefined values
+            if (aVal == null && bVal == null) return 0
+            if (aVal == null) return 1
+            if (bVal == null) return -1
+
+            // Special handling for dates
             if (sortField === "createdAt") {
                 aVal = new Date(aVal)
                 bVal = new Date(bVal)
+
+                // Handle invalid dates
+                if (isNaN(aVal.getTime()) && isNaN(bVal.getTime())) return 0
+                if (isNaN(aVal.getTime())) return 1
+                if (isNaN(bVal.getTime())) return -1
+            } else {
+                // Convert to string for consistent comparison
+                aVal = aVal.toString().toLowerCase()
+                bVal = bVal.toString().toLowerCase()
             }
 
             if (aVal < bVal) return sortDirection === "asc" ? -1 : 1
             if (aVal > bVal) return sortDirection === "asc" ? 1 : -1
             return 0
         })
-
-        return filtered
     }, [entries, searchTerm, sortField, sortDirection, selectedCategory, selectedCountry, dateRange])
 
+    // Pagination calculations
     const totalPages = Math.ceil(filteredAndSortedEntries.length / itemsPerPage)
     const startIndex = (currentPage - 1) * itemsPerPage
     const paginatedEntries = filteredAndSortedEntries.slice(startIndex, startIndex + itemsPerPage)
 
-    const uniqueCategories = [...new Set(entries.map((entry) => entry.productCategory).filter(Boolean))]
-    const uniqueCountries = [...new Set(entries.map((entry) => entry.country).filter(Boolean))]
-
-    const handleSort = (field) => {
+    // Optimized sort handler
+    const handleSort = useCallback((field) => {
         if (sortField === field) {
-            setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+            setSortDirection(prev => prev === "asc" ? "desc" : "asc")
         } else {
             setSortField(field)
             setSortDirection("asc")
         }
-    }
+    }, [sortField])
 
-    const clearFilters = () => {
+    // Reset pagination when filters change
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [searchTerm, selectedCategory, selectedCountry, dateRange, itemsPerPage])
+
+    // Clear filters handler
+    const clearFilters = useCallback(() => {
         setSearchTerm("")
         setSelectedCategory("")
         setSelectedCountry("")
         setDateRange({ start: "", end: "" })
         setCurrentPage(1)
-    }
+    }, [])
 
-    const exportCSV = () => {
+    // Optimized CSV export with better error handling
+    const exportCSV = useCallback(() => {
         if (filteredAndSortedEntries.length === 0) return
 
-        const headers = Object.keys(filteredAndSortedEntries[0])
-        const csvRows = [
-            headers.join(","),
-            ...filteredAndSortedEntries.map((row) => headers.map((field) => JSON.stringify(row[field] ?? "")).join(",")),
-        ]
-        const csvString = csvRows.join("\n")
+        try {
+            const headers = Object.keys(filteredAndSortedEntries[0])
+            const csvRows = [
+                headers.join(","),
+                ...filteredAndSortedEntries.map((row) =>
+                    headers.map((field) => {
+                        const value = row[field] ?? ""
+                        // Escape quotes and wrap in quotes if contains comma, quote, or newline
+                        const escaped = value.toString().replace(/"/g, '""')
+                        return /[",\n\r]/.test(escaped) ? `"${escaped}"` : escaped
+                    }).join(",")
+                ),
+            ]
+            const csvString = csvRows.join("\n")
 
-        const blob = new Blob([csvString], { type: "text/csv" })
-        const url = window.URL.createObjectURL(blob)
+            const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" })
+            const url = window.URL.createObjectURL(blob)
 
-        const a = document.createElement("a")
-        a.href = url
-        a.download = "submissions.csv"
-        a.click()
-        window.URL.revokeObjectURL(url)
-    }
+            const a = document.createElement("a")
+            a.href = url
+            a.download = `submissions_${new Date().toISOString().split('T')[0]}.csv`
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            window.URL.revokeObjectURL(url)
+        } catch (error) {
+            console.error('Failed to export CSV:', error)
+            alert('Failed to export CSV. Please try again.')
+        }
+    }, [filteredAndSortedEntries])
 
-    const exportExcel = () => {
+    // Optimized Excel export with better error handling
+    const exportExcel = useCallback(() => {
         if (filteredAndSortedEntries.length === 0) return
 
-        const worksheet = XLSX.utils.json_to_sheet(filteredAndSortedEntries)
-        const workbook = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Submissions")
+        try {
+            const worksheet = XLSX.utils.json_to_sheet(filteredAndSortedEntries)
+            const workbook = XLSX.utils.book_new()
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Submissions")
 
-        XLSX.writeFile(workbook, "submissions.xlsx")
-    }
+            XLSX.writeFile(workbook, `submissions_${new Date().toISOString().split('T')[0]}.xlsx`)
+        } catch (error) {
+            console.error('Failed to export Excel:', error)
+            alert('Failed to export Excel file. Please try again.')
+        }
+    }, [filteredAndSortedEntries])
 
+    // Pagination handlers
+    const handlePageChange = useCallback((page) => {
+        setCurrentPage(Math.max(1, Math.min(page, totalPages)))
+    }, [totalPages])
+
+    const handleItemsPerPageChange = useCallback((newItemsPerPage) => {
+        setItemsPerPage(Number(newItemsPerPage))
+        setCurrentPage(1)
+    }, [])
+
+    // Generate page numbers for pagination
+    const getPageNumbers = useMemo(() => {
+        const maxVisiblePages = 5
+        if (totalPages <= maxVisiblePages) {
+            return Array.from({ length: totalPages }, (_, i) => i + 1)
+        }
+
+        if (currentPage <= 3) {
+            return Array.from({ length: maxVisiblePages }, (_, i) => i + 1)
+        }
+
+        if (currentPage >= totalPages - 2) {
+            return Array.from({ length: maxVisiblePages }, (_, i) => totalPages - maxVisiblePages + i + 1)
+        }
+
+        return Array.from({ length: maxVisiblePages }, (_, i) => currentPage - 2 + i)
+    }, [currentPage, totalPages])
+
+    // Format date helper
+    const formatDate = useCallback((dateString) => {
+        if (!dateString) return { date: "-", time: "" }
+
+        try {
+            const date = new Date(dateString)
+            if (isNaN(date.getTime())) return { date: "-", time: "" }
+
+            return {
+                date: date.toLocaleDateString(),
+                time: date.toLocaleTimeString()
+            }
+        } catch {
+            return { date: "-", time: "" }
+        }
+    }, [])
+
+    // Loading state
     if (loading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -128,9 +305,31 @@ export default function AdminPage() {
         )
     }
 
-    return (
-        <div className="min-h-screen bg-gray-50 pt-10">
+    // Error state
+    if (error) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                        <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 className="text-2xl font-light text-gray-900 mb-2">Error Loading Data</h3>
+                    <p className="text-gray-600 font-light mb-4">{error}</p>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+                    >
+                        Retry
+                    </button>
+                </div>
+            </div>
+        )
+    }
 
+    return (
+        <div className="min-h-screen bg-gray-50">
             <div className="bg-white border-b border-gray-200 shadow-sm">
                 <div className="section mx-auto px-6 py-8">
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -144,18 +343,11 @@ export default function AdminPage() {
                         </div>
 
                         <div className="flex flex-col sm:flex-row gap-3">
-                            {/* <button
+                            <ButtonDark
+                                className="flex justify-center gap-2 items-center"
                                 onClick={exportCSV}
                                 disabled={filteredAndSortedEntries.length === 0}
-
-                                className="px-6 py-3 bg-secondary text-white font-medium text-sm rounded-lg  disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200 flex items-center gap-2"
-
                             >
-                            </button> */}
-                            <ButtonDark className="flex justify-center gap-2 items-center"
-
-                                onClick={exportCSV}
-                                disabled={filteredAndSortedEntries.length === 0}>
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
                                         strokeLinecap="round"
@@ -181,6 +373,10 @@ export default function AdminPage() {
                                 </svg>
                                 Export Excel
                             </button>
+                            <span className="flex gap-2 justify-center bg-red-50 items-center rounded-lg border-1 border-red-500 p-2 cursor-pointer" onClick={handleLogout}>
+                                <LogOut className=" text-red-500  h-5 w-5" />
+                                Logout
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -323,18 +519,7 @@ export default function AdminPage() {
                                 <table className="min-w-full divide-y divide-gray-200">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            {[
-                                                { key: "createdAt", label: "Date" },
-                                                { key: "fullName", label: "Full Name" },
-                                                { key: "email", label: "Email" },
-                                                { key: "phone", label: "Phone" },
-                                                { key: "company", label: "Company" },
-                                                { key: "website", label: "Website" },
-                                                { key: "country", label: "Country" },
-                                                { key: "productCategory", label: "Category" },
-                                                { key: "role", label: "Role" },
-                                                { key: "message", label: "Message" },
-                                            ].map((header) => (
+                                            {TABLE_HEADERS.map((header) => (
                                                 <th
                                                     key={header.key}
                                                     className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors duration-200"
@@ -372,48 +557,53 @@ export default function AdminPage() {
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200">
-                                        {paginatedEntries.map((entry, index) => (
-                                            <tr key={entry._id} className="hover:bg-gray-50 transition-colors duration-150">
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
-                                                    {entry.createdAt ? new Date(entry.createdAt).toLocaleDateString() : "-"}
-                                                    <div className="text-xs text-gray-500 mt-1">
-                                                        {entry.createdAt ? new Date(entry.createdAt).toLocaleTimeString() : ""}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                    {entry.fullName || "-"}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.email || "-"}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.phone || "-"}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.company || "-"}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                                    {entry.website ? (
-                                                        <a
-                                                            href={entry.website}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="text-blue-600 hover:text-blue-800 hover:underline"
-                                                        >
-                                                            {entry.website.length > 30 ? entry.website.substring(0, 30) + "..." : entry.website}
-                                                        </a>
-                                                    ) : (
-                                                        "-"
-                                                    )}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.country || "-"}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                                        {entry.productCategory || "-"}
-                                                    </span>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.role || "-"}</td>
-                                                <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
-                                                    <div className="truncate" title={entry.message}>
-                                                        {entry.message || "-"}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                        {paginatedEntries.map((entry) => {
+                                            const { date, time } = formatDate(entry.createdAt)
+                                            return (
+                                                <tr key={entry._id || entry.id || Math.random()} className="hover:bg-gray-50 transition-colors duration-150">
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">
+                                                        {date}
+                                                        {time && (
+                                                            <div className="text-xs text-gray-500 mt-1">
+                                                                {time}
+                                                            </div>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                        {entry.fullName || "-"}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.email || "-"}</td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.phone || "-"}</td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.company || "-"}</td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                                        {entry.website ? (
+                                                            <a
+                                                                href={entry.website.startsWith('http') ? entry.website : `https://${entry.website}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="text-blue-600 hover:text-blue-800 hover:underline"
+                                                            >
+                                                                {entry.website.length > 30 ? entry.website.substring(0, 30) + "..." : entry.website}
+                                                            </a>
+                                                        ) : (
+                                                            "-"
+                                                        )}
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.country || "-"}</td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                            {entry.productCategory || "-"}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{entry.role || "-"}</td>
+                                                    <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
+                                                        <div className="truncate" title={entry.message}>
+                                                            {entry.message || "-"}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>
@@ -428,22 +618,18 @@ export default function AdminPage() {
                                     </span>
                                     <select
                                         value={itemsPerPage}
-                                        onChange={(e) => {
-                                            setItemsPerPage(Number(e.target.value))
-                                            setCurrentPage(1)
-                                        }}
+                                        onChange={(e) => handleItemsPerPageChange(e.target.value)}
                                         className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-gray-900 focus:border-transparent"
                                     >
-                                        <option value={5}>5 per page</option>
-                                        <option value={10}>10 per page</option>
-                                        <option value={25}>25 per page</option>
-                                        <option value={50}>50 per page</option>
+                                        {ITEMS_PER_PAGE_OPTIONS.map(option => (
+                                            <option key={option} value={option}>{option} per page</option>
+                                        ))}
                                     </select>
                                 </div>
 
                                 <div className="flex items-center gap-2">
                                     <button
-                                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                                        onClick={() => handlePageChange(currentPage - 1)}
                                         disabled={currentPage === 1}
                                         className="px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                                     >
@@ -451,33 +637,22 @@ export default function AdminPage() {
                                     </button>
 
                                     <div className="flex gap-1">
-                                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                                            let pageNum
-                                            if (totalPages <= 5) {
-                                                pageNum = i + 1
-                                            } else if (currentPage <= 3) {
-                                                pageNum = i + 1
-                                            } else if (currentPage >= totalPages - 2) {
-                                                pageNum = totalPages - 4 + i
-                                            } else {
-                                                pageNum = currentPage - 2 + i
-                                            }
-
-                                            return (
-                                                <button
-                                                    key={pageNum}
-                                                    onClick={() => setCurrentPage(pageNum)}
-                                                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${currentPage === pageNum ? "bg-gray-900 text-white" : "text-gray-700 hover:bg-gray-100"
-                                                        }`}
-                                                >
-                                                    {pageNum}
-                                                </button>
-                                            )
-                                        })}
+                                        {getPageNumbers.map((pageNum) => (
+                                            <button
+                                                key={pageNum}
+                                                onClick={() => handlePageChange(pageNum)}
+                                                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${currentPage === pageNum
+                                                    ? "bg-gray-900 text-white"
+                                                    : "text-gray-700 hover:bg-gray-100"
+                                                    }`}
+                                            >
+                                                {pageNum}
+                                            </button>
+                                        ))}
                                     </div>
 
                                     <button
-                                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                                        onClick={() => handlePageChange(currentPage + 1)}
                                         disabled={currentPage === totalPages}
                                         className="px-3 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
                                     >
