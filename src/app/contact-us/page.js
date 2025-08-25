@@ -89,6 +89,7 @@ export default function ContactSection() {
                         alt="Contact"
                         fill
                         quality={100}
+                        priority
                         className="object-cover"
                     />
                 </div>
