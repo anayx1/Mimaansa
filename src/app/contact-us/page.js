@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { Check, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // Validation schema
 const schema = Yup.object().shape({
@@ -14,7 +15,6 @@ const schema = Yup.object().shape({
     phone: Yup.string().required("Phone number is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     company: Yup.string().required("Company name is required"),
-    // website: Yup.string().url("Invalid URL").required("Website URL is required"),
     country: Yup.string().required("Country is required"),
     productCategory: Yup.string().required("Product category is required"),
     role: Yup.string().required("Please select who you are"),
@@ -37,8 +37,17 @@ export default function ContactSection() {
     });
 
     const consentValue = watch("consent");
+    const router = useRouter();
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
+    const [modalSuccess, setModalSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const onSubmit = async (data) => {
+        setLoading(true);
+
         try {
             const res = await fetch("/api/contact", {
                 method: "POST",
@@ -47,17 +56,31 @@ export default function ContactSection() {
             });
 
             if (!res.ok) throw new Error("Request failed");
-            alert("Form submitted successfully!");
+
+            setModalMessage("Form submitted successfully! Redirecting to homepage...");
+            setModalSuccess(true);
+            setModalOpen(true);
+
             reset();
+
+            // Redirect after 5 seconds
+            setTimeout(() => {
+                setModalOpen(false);
+                router.push("/");
+            }, 5000);
         } catch (e) {
             console.error(e);
-            alert("Error submitting form");
+            setModalMessage("Failed to submit form. Please try again.");
+            setModalSuccess(false);
+            setModalOpen(true);
+        }
+        finally {
+            setLoading(false);
         }
     };
 
-
     return (
-        <section className="bg-primary">
+        <section className="bg-primary relative">
             <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
                 {/* Left image */}
                 <div className="relative w-full h-[500px] md:h-auto">
@@ -76,8 +99,11 @@ export default function ContactSection() {
                         Let's work on your next big thing.
                     </h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 font-bold">
-                        {/* Text Inputs */}
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="space-y-4 font-bold"
+                    >
+                        {/* Inputs */}
                         {[
                             { name: "fullName", placeholder: "Full Name" },
                             { name: "phone", placeholder: "Phone No." },
@@ -100,7 +126,7 @@ export default function ContactSection() {
                             </div>
                         ))}
 
-                        {/* Styled Select - Product Category */}
+                        {/* Product Category */}
                         <div className="relative">
                             <select
                                 {...register("productCategory")}
@@ -109,17 +135,21 @@ export default function ContactSection() {
                                 <option value="">Product Category</option>
                                 <option value="apparels">Apparels</option>
                                 <option value="home-furniture">Home Furniture</option>
-                                <option value="lifestyleaccessories">Lifestyle Accessories</option>
+                                <option value="lifestyleaccessories">
+                                    Lifestyle Accessories
+                                </option>
                             </select>
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none ">
                                 <ChevronDown className="text-gray-600" />
                             </span>
                         </div>
                         {errors.productCategory && (
-                            <p className="text-red-500 text-sm">{errors.productCategory.message}</p>
+                            <p className="text-red-500 text-sm">
+                                {errors.productCategory.message}
+                            </p>
                         )}
 
-                        {/* Styled Select - Role */}
+                        {/* Role */}
                         <div className="relative">
                             <select
                                 {...register("role")}
@@ -148,14 +178,16 @@ export default function ContactSection() {
                             <p className="text-red-500 text-sm">{errors.message.message}</p>
                         )}
 
-                        {/* Radix Checkbox for consent */}
+                        {/* Consent */}
                         <div className="flex items-center space-x-2">
                             <Checkbox.Root
                                 className="flex h-6 w-6 items-center justify-center rounded border border-gray-400 data-[state=checked]:bg-black data-[state=checked]:text-white"
                                 checked={consentValue || false}
                                 onCheckedChange={(checked) => setValue("consent", checked)}
                             >
-                                <Checkbox.Indicator><Check className="text-white p-1 " /></Checkbox.Indicator>
+                                <Checkbox.Indicator>
+                                    <Check className="text-white p-1 " />
+                                </Checkbox.Indicator>
                             </Checkbox.Root>
                             <span className="text-sm font-normal">
                                 I consent to my details being stored and used in accordance.
@@ -167,13 +199,42 @@ export default function ContactSection() {
 
                         <button
                             type="submit"
-                            className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                            disabled={loading}
+                            className={`w-full flex items-center justify-center bg-black text-white py-3 rounded transition ${loading ? "opacity-70 cursor-not-allowed" : "hover:bg-gray-800"
+                                }`}
                         >
-                            Submit
+                            {loading ? (
+                                <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                                "Submit"
+                            )}
                         </button>
                     </form>
                 </div>
             </div>
+
+            {/* Modal */}
+            {modalOpen && (
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md text-center">
+                        <h3
+                            className={`text-xl font-bold mb-2 ${modalSuccess ? "text-green-600" : "text-red-600"
+                                }`}
+                        >
+                            {modalSuccess ? "Success" : "Error"}
+                        </h3>
+                        <p className="mb-4">{modalMessage}</p>
+                        {!modalSuccess && (
+                            <button
+                                onClick={() => setModalOpen(false)}
+                                className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition"
+                            >
+                                Close
+                            </button>
+                        )}
+                    </div>
+                </div>
+            )}
         </section>
     );
 }
