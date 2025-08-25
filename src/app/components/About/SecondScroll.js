@@ -1,5 +1,5 @@
 'use client'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 
@@ -20,19 +20,31 @@ const ParallaxFounderSection = () => {
   }, [])
 
   // Animations
-  const leftContentY = useTransform(scrollYProgress, [0, 1], [200, -300])
+  const rawLeftContentY = useTransform(scrollYProgress, [0, 1], [50, -400])
+  const rawImageY = useTransform(scrollYProgress, [0, 1], [-80, 150])
+
+  // Add smoothing with spring
+  const leftContentY = useSpring(rawLeftContentY, {
+    stiffness: 150,   // lower = smoother
+    damping: 20,     // higher = less bounce
+    mass: 1        // controls weight of motion
+  })
+
+
+  // const leftContentY = useTransform(scrollYProgress, [0, 1], [200, -400])
   const imageY = useTransform(scrollYProgress, [0, 1], [-80, 150])
 
   return (
     <section
       ref={containerRef}
-      className="min-h-screen bg-[#27272a] py-12 sm:py-16 md:py-20 lg:py-32 overflow-hidden"
+      className="min-h-screen bg-[#27272a] py-12 sm:py-16 md:py-20 lg:py-32 overflow-hidden pb-10"
     >
-      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 md:gap-16 items-center min-h-[60vh] sm:min-h-[70vh] lg:min-h-[80vh]">
-          
+
           {/* Left Side - Text */}
-          <div
+          {/* Left Side - Text */}
+          <motion.div
             className="space-y-5 sm:space-y-6 md:space-y-8 order-2 lg:order-1 text-center lg:text-left"
             style={isMobile ? {} : { y: leftContentY }}
           >
@@ -43,18 +55,28 @@ const ParallaxFounderSection = () => {
 
               <div
                 className="space-y-2 sm:space-y-3 md:space-y-4 text-sm sm:text-base md:text-lg text-secondary/80 leading-relaxed 
-                           max-w-full sm:max-w-xl mx-auto lg:mx-0"
+                 max-w-full sm:max-w-xl mx-auto lg:mx-0"
               >
                 <p className="text-primary/70">
-                  <strong>Ms. Rafia Jain</strong> is an experienced apparel and textile sourcing specialist with a passion for people and ethical business. With over a decade in India's export industry, she launched Mimaansa to bring professionalism and trust to apparel and home furnishings export. She leads by example, combining industry expertise with warmth and empathy. As a working mother, she balances business leadership with family life, inspiring a people-first culture at Mimaansa. Under her guidance, the Mimaansa team shares her commitment to reliable service and integrity. She remains hands-on with the business, ensuring every partnership reflects Mimaansa's values.
+                  <strong>Ms. Rafia Jain</strong> is an experienced apparel and textile
+                  sourcing specialist with a passion for people and ethical business. With
+                  over a decade in India's export industry, she launched Mimaansa to bring
+                  professionalism and trust to apparel and home furnishings export. She
+                  leads by example, combining industry expertise with warmth and empathy.
+                  As a working mother, she balances business leadership with family life,
+                  inspiring a people-first culture at Mimaansa. Under her guidance, the
+                  Mimaansa team shares her commitment to reliable service and integrity.
+                  She remains hands-on with the business, ensuring every partnership
+                  reflects Mimaansa's values.
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
+
 
           {/* Right Side - Image */}
           <div className="relative order-1 lg:order-2">
-            <div className="relative h-[280px] sm:h-[380px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden shadow-xl md:shadow-2xl">
+            <div className="relative h-[280px] md:h-[100dvh] rounded-lg overflow-hidden shadow-xl md:shadow-2xl">
               <motion.div
                 className="w-full h-[150%]"
                 style={{

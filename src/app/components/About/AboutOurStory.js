@@ -44,7 +44,7 @@ const OurStorySection = () => {
     const extendedText =
         " Starting as a small team in India’s capital region, we’ve grown into a full-service sourcing and export agency serving clients across the USA, Europe, Australia, and more. Our journey is rooted in integrity, quality, and personal service. We value the strong relationships we’ve built with both clients and trusted Indian manufacturers who share our values. As India’s global sourcing appeal grows, we remain committed to offering dependable, personalized support that makes that opportunity accessible to all.";
     return (
-        <section className="min-h-screen bg-primary py-16 sm:py-20 mt-[500px] md:mt-80 md:mb-10 overflow-x-hidden">
+        <section className="min-h-screen bg-primary py-16 sm:py-20 mt-[500px] md:mt-100 md:mb-10 overflow-x-hidden">
             <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-7xl">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start">
                     {/* Left Side */}
@@ -67,10 +67,6 @@ const OurStorySection = () => {
 
                         <motion.div
                             className="space-y-4 sm:space-y-6 md:pb-15"
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            viewport={{ once: true }}
                         >
                             <motion.p className=" text-secondary text-center lg:text-left">
                                 {shortText}
