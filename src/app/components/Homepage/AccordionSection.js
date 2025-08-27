@@ -66,7 +66,7 @@ const AccordionSection = () => {
                 ))}
             </Head>
             <section className="min-h-screen bg-primary py-20 flex items-center justify-center">
-                <div className="container mx-auto px-8 w-[95%]">
+                <div className="mx-6 md:px-8 w-[95%]">
                     {/* Header */}
                     <motion.div initial={{ opacity: 0, scale: 1, y: 40 }}
                         whileInView={{ opacity: 1, scale: 1, y: 0 }}

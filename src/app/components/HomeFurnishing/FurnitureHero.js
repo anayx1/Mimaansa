@@ -59,7 +59,7 @@ const FurnitureHero = () => {
                             </div>
                             {/* Description + scroll message */}
                             <div className="w-full lg:w-1/3 flex flex-col gap-3 text-center lg:text-left">
-                                <span className="text-white text-base sm:text-lg md:text-xl leading-relaxed">
+                                <span className="text-white text-base text-left sm:text-lg md:text-xl leading-relaxed">
                                     We focus on four key product categories - apparel, home textiles, fabrics and fashion accessories - combining India's craftsmanship with global quality standards to meet diverse sourcing needs.
                                 </span>
                                 <div className="overflow-hidden h-[1.5em] inline-block mx-auto lg:mx-0">
@@ -100,7 +100,7 @@ const FurnitureHero = () => {
 
                     <div className=" mx-auto">
                         {/* HEADER GRID */}
-                        <div className='w-full flex justify-center items-center'>
+                        <div className='w-[95%] flex justify-center items-center mx-auto'>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-12 section">
                                 <h2 className="text-primary font-bold">Fabrics</h2>
                                 <p className="text-primary">
@@ -109,27 +109,7 @@ const FurnitureHero = () => {
                             </div>
                         </div>
                         {/* IMAGE GRID */}
-                        <div className="w-full overflow-hidden pt-10 relative">
-                            <div className="flex animate-marquee">
-                                {[...images, ...images].map((image, index) => (
-                                    <div
-                                        key={index}
-                                        className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
-                                    >
-                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
-                                            <Image
-                                                src={image}
-                                                alt={`Mission ${index}`}
-                                                fill
-                                                className="object-cover"
-                                                sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-                                                quality={100}
-                                            />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+
                         <div className="w-full overflow-hidden pt-8 relative">
                             <div className="flex animate-marquee-reverse">
                                 {[...images2, ...images2].map((image, index) => (
@@ -151,7 +131,27 @@ const FurnitureHero = () => {
                                 ))}
                             </div>
                         </div>
-
+                        <div className="w-full overflow-hidden pt-10 relative">
+                            <div className="flex animate-marquee">
+                                {[...images, ...images].map((image, index) => (
+                                    <div
+                                        key={index}
+                                        className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
+                                    >
+                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                                            <Image
+                                                src={image}
+                                                alt={`Mission ${index}`}
+                                                fill
+                                                className="object-cover"
+                                                sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
+                                                quality={100}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                         <style jsx>{`
                  @keyframes marquee {
                    0% { transform: translateX(0); }

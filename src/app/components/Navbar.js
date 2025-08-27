@@ -88,14 +88,14 @@ const AnimatedNavbar = () => {
   ]
 
   const socialLinks = [
-    { title: "INSTAGRAM", href: "https://instagram.com" },
-    { title: "X", href: "https://x.com" },
-    { title: "THREADS", href: "https://threads.net" },
-    { title: "FACEBOOK", href: "https://facebook.com" },
-    { title: "YOUTUBE", href: "https://youtube.com" },
-    { title: "LINKEDIN", href: "https://linkedin.com" },
-    { title: "TERMS & CONDITIONS", href: "/terms" },
-    { title: "PRIVACY POLICY", href: "/privacy" },
+    { title: "INSTAGRAM", href: "/contact-us" },
+    { title: "X", href: "/contact-us" },
+    { title: "THREADS", href: "/contact-us" },
+    { title: "FACEBOOK", href: "/contact-us" },
+    { title: "YOUTUBE", href: "/contact-us" },
+    { title: "LINKEDIN", href: "/contact-us" },
+    { title: "TERMS & CONDITIONS", href: "/terms-and-conditions" },
+    { title: "PRIVACY POLICY", href: "/privacy-policy" },
   ]
 
   const containerVariants = {

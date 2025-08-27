@@ -27,7 +27,7 @@ const cards = [
     },
 
     {
-        title: "Quality Control",
+        title: "QUALITY CONTROL",
         text: "Quality is central to everything we do. Mimaansa’s inspectors carry out checks at every stage-starting with raw materials and initial samples. During production, we conduct inline inspections to catch issues early, like stitching or colour flaws. After production, we run final checks using AQL standards or your specific requirements, reviewing workmanship, measurements, packaging, and even lab testing when needed. Any defects are corrected before shipment. We also oversee final packing and loading to ensure your order leaves India in top condition.",
         img: "/services/qc.jpg",
     },

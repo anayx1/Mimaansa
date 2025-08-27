@@ -6,7 +6,7 @@ const TrackRecord = () => {
         <>
             <section className="w-full flex flex-col justify-center items-center py-20 bg-[#f7f4ef]">
                 {/* Heading */}
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl text-[#1e1e1e] uppercase text-center mb-12">
+                <h2 className=" text-[#1e1e1e] uppercase text-center mb-12">
                     TRACK RECORDS
                 </h2>
 
@@ -26,7 +26,6 @@ const TrackRecord = () => {
 
                 {/* Description */}
                 <p className="max-w-3xl text-center text-secondary px-4 py-10">
-
                     Over the years, Mimaansa has built a strong track record for quality and
                     reliability, delivering hundreds of product orders worldwide. From
                     boutique brands to large retail chains, we maintain strict quality
@@ -34,7 +33,7 @@ const TrackRecord = () => {
                     service and attention to detail to every client.
                 </p>
 
-                <div className="w-full px-4 mt-8">
+                <div className="w-full px-6 mt-8">
                     <AnimatedList />
                 </div>
             </section>

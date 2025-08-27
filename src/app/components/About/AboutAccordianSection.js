@@ -49,7 +49,7 @@ const AboutAccordianSection = () => {
                 {/* Header */}
                 <div className="text-center mb-10 sm:mb-14 lg:mb-16">
                     <motion.h2
-                        className="text-3xl sm:text-5xl lg:text-8xl mb-4 sm:mb-6"
+                        className="mb-4 sm:mb-6"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
@@ -58,7 +58,7 @@ const AboutAccordianSection = () => {
                         VALUES
                     </motion.h2>
                     <motion.p
-                        className="text-base sm:text-lg md:text-xl text-secondary/70 mx-auto max-w-2xl"
+                        className=" text-secondary mx-auto max-w-2xl"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}

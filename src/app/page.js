@@ -22,8 +22,8 @@ const page = () => {
       <ScrollColorSection />
       <ServicesSection />
       <ProductCategoriesSection />
-      <AccordionSection />
       <TimelineComponent />
+      <AccordionSection />
       <div>
         {/* Desktop Version */}
         <div className="hidden md:block">

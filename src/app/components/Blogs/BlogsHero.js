@@ -73,7 +73,7 @@ const BlogsHero = () => {
                     transformOrigin: "top center"
                 }}
             >
-                <div className='section  flex flex-col items-start justify-start pt-20 gap-3'>
+                <div className='section  flex flex-col items-start justify-start pt-20 gap-3 pl-5 md:pl-0'>
                     <span className='text-md text-primary'>New</span>
                     <p className='text-primary'>
 

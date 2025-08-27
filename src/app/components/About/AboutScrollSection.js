@@ -56,7 +56,7 @@ export default function   AboutScrollSection() {
                         <motion.span
                           key={lIndex}
                           style={{ color }}
-                          className="md:text-[30px] leading-relaxed"
+                          className="text-2xl md:text-[30px] leading-relaxed"
                         >
                           {letter}
                         </motion.span>

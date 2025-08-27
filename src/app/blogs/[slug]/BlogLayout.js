@@ -81,7 +81,7 @@ export default function BlogLayout({ blogData }) {
             </div>
 
             {/* First Text Section */}
-            <section className="px-6 md:px-12 lg:px-24 py-16 max-w-7xl mx-[5%]">
+            <section className="px-6 md:px-12 lg:px-24 py-16 max-w-7xl md:mx-[5%]">
                 <div className="space-y-8 text-gray-800">
                     <h3 className="text-[30px] md:text-2xl lg:text-2xl">{blogData.introText}</h3>
                     <div className="space-y-6">
@@ -120,7 +120,7 @@ export default function BlogLayout({ blogData }) {
             </section>
 
             {/* Main Content Section */}
-            <section className="px-6 md:px-12 lg:px-24 py-16 max-w-7xl mx-[5%]">
+            <section className="px-6 md:px-12 lg:px-24 py-16 max-w-7xl md:mx-[5%]">
                 <div className="space-y-8 text-gray-800">
                     <div className="text-base md:text-3xl lg:text-2xl leading-relaxed space-y-6">
                         {blogData.mainContent.map((paragraph, index) => (

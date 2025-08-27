@@ -23,7 +23,7 @@ export default function LifestyleAccessoriesBuiltWithCare() {
         <>
             <section
                 ref={sectionRef}
-                className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f7f2] py-10"
+                className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f7f2] md:py-10"
             >
                 {/* Heading */}
                 <motion.h2

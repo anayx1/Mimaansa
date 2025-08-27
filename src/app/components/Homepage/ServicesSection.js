@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const ServicesSection = () => {
     const [hoveredService, setHoveredService] = useState(null)
@@ -112,15 +113,18 @@ const ServicesSection = () => {
 
                                 {/* View Text */}
                                 <div className="md:col-span-2 md:text-right">
-                                    <motion.span
-                                        className="text-base sm:text-lg font-medium"
-                                        animate={{
-                                            color: hoveredService?.id === service.id ? '#FFFFFF' : '#27272A'
-                                        }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        View
-                                    </motion.span>
+                                    <Link href={"/services"}>
+
+                                        <motion.span
+                                            className="text-base sm:text-lg font-medium"
+                                            animate={{
+                                                color: hoveredService?.id === service.id ? '#FFFFFF' : '#27272A'
+                                            }}
+                                            transition={{ duration: 0.3 }}
+                                        >
+                                            View
+                                        </motion.span>
+                                    </Link>
                                 </div>
 
                                 {/* Inline Image for Mobile/Tablet */}

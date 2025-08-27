@@ -24,14 +24,14 @@ const StackingHeroSection = () => {
             <div className="max-w-[95%] flex flex-col lg:flex-row lg:justify-between pb-2 gap-6 sm:gap-8 lg:gap-4">
               {/* Title */}
               <div className="w-full lg:w-2/3 flex items-end">
-                <h2 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-8xl uppercase leading-tight text-center lg:text-left">
+                <h2 className="text-white md:text-6xl lg:text-8xl uppercase leading-tight text-center lg:text-left">
                   About Us
                 </h2>
               </div>
 
               {/* Description + scroll message */}
               <div className="w-full lg:w-1/3 flex flex-col gap-3 sm:gap-4 text-center lg:text-left">
-                <span className="text-white text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
+                <span className="text-white text-base md:text-lg lg:text-xl leading-relaxed">
                   Mimaansa provides comprehensive services at each stage of the sourcing and production process. From apparel sourcing and home textile exports to fashion accessories sourcing in India, we handle it all. Here's a closer look at how we work and what we offer.
                 </span>
 
@@ -51,7 +51,7 @@ const StackingHeroSection = () => {
                     {messages.map((msg, i) => (
                       <span
                         key={i}
-                        className="text-white text-xs sm:text-sm md:text-base"
+                        className="text-white text-base"
                       >
                         {msg}
                       </span>

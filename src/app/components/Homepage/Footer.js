@@ -114,7 +114,7 @@ export default function Footer() {
                     >
 
                         <Link
-                            href={'#'}
+                            href={'/contact-us'}
                             className="uppercase relative group text-gray-200 hover:text-gray-300 transition-colors text-lg font-navbar"
                         >
                             Instagram
@@ -124,7 +124,7 @@ export default function Footer() {
                             />
                         </Link>
                         <Link
-                            href={'#'}
+                            href={'/contact-us'}
                             className="uppercase relative group text-gray-200 hover:text-gray-300 transition-colors text-lg font-navbar"
                         >
                             Linkedin
@@ -133,7 +133,7 @@ export default function Footer() {
                             />
                         </Link>
                         <Link
-                            href={'#'}
+                            href={'/contact-us'}
                             className="uppercase relative group text-gray-200 hover:text-gray-300 transition-colors text-lg font-navbar"
                         >
                             TWITTER

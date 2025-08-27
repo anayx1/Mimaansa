@@ -24,7 +24,7 @@ const ServiceHero = () => {
                         <div className="max-w-[95%] flex flex-col lg:flex-row lg:justify-between pb-3 gap-4">
                             {/* Title */}
                             <div className="w-full lg:w-2/3 flex items-end">
-                                <h2 className="text-white uppercase leading-tight text-center lg:text-left">
+                                <h2 className="text-white uppercase leading-tight lg:text-left">
                                     OUR SERVICES & PROCESS
                                 </h2>
                             </div>

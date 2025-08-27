@@ -46,7 +46,7 @@ export default function FAQSection() {
 
     return (
         <div className="py-20 bg-stone-100" style={{ backgroundColor: '#f5f1eb' }}>
-            <div className="max-w-[90%] mx-auto px-6">
+            <div className="md:max-w-[90%] mx-auto px-6">
                 {/* Header - Exact match */}
                 <motion.div
                     className="text-center mb-16"

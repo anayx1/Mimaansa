@@ -22,14 +22,12 @@ export default function BuiltWithCare() {
         <>
             <section
                 ref={sectionRef}
-                className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f7f2] py-20"
+                className="relative min-h-screen flex flex-col items-center justify-center bg-[#f9f7f2] md:py-20"
             >
                 {/* Heading */}
                 <motion.h2
                     // style={{ fontSize: headingFontSize }}
-                    className="my-10 text-secondary leading-tight"
-
-                >
+                    className="my-10 text-secondary leading-tight"   >
                     BUILT WITH CARE
                 </motion.h2>
 

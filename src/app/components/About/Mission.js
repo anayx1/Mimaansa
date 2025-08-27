@@ -18,7 +18,7 @@ const ContinuousMarqueeSlider = () => {
                         <h2 className="">MISSION</h2>
                     </div>
                     <div className='md:w-1/3 mt-5 md:mt-0'>
-                        <p>
+                        <p className='text-center md:text-left'>
                             Our mission is to empower global brands with seamless, responsible sourcing from India. We strive to deliver value through quality products, ethical practices, and end-to-end support - enabling our clients to succeed in their markets while making a positive impact via fair and sustainable sourcing.
                         </p>
                     </div>

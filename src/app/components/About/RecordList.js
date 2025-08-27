@@ -45,7 +45,7 @@ const rowVariants = {
     show: { opacity: 1, x: 0, transition: { ease: "easeInOut", duration: 0.8 } },
 };
 
-export default function AnimatedList() {
+export default function  AnimatedList() {
     const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.2,
@@ -67,9 +67,9 @@ export default function AnimatedList() {
                 >
                     {/* Left side: number + title */}
                     <div className="flex items-start gap-4">
-                        <p className="text-secondary">{row.number}</p>
+                        <p className="text-secondary  text-sm md:text-xl ">{row.number}</p>
 
-                        <h3 className="leading-snug break-words">{row.title}</h3>
+                        <h3 className="leading-snug break-words  text-3xl md:text-[40px]">{row.title}</h3>
                     </div>
 
                     {/* Right side: description */}

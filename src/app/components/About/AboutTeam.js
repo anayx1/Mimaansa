@@ -5,7 +5,7 @@ import Image from "next/image";
 import Button from "../Button";
 import { useState } from "react";
 
-export default function TeamSection() {
+export default function     TeamSection() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const shortText =
@@ -14,7 +14,7 @@ export default function TeamSection() {
     const extendedText =
         " We operate as an extension of your own team on the ground. With English-speaking staff and regional experts, we eliminate language barriers and cultural misunderstandings that can complicate overseas sourcing. When you work with Mimaansa, you gain a dedicated partner who is as passionate about your products as you are."
     return (
-        <section className="bg-secondary text-white px-4 sm:px-6 lg:px-20 min-h-screen py-20">
+        <section className="bg-secondary text-white px-6 lg:px-20 min-h-screen py-20">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[auto_auto_auto] gap-12 items-start py-20">
 
                 {/* Image */}
