@@ -459,6 +459,12 @@ const AnimatedNavbar = () => {
                           <Link
                             key={index}
                             href={link.href}
+                            onClick={() => {
+                              // Close the navbar when any footer link is clicked
+                              setIsMenuOpen(false)
+                              setOpenMobileSubmenu(null)
+                              setHoveredItem(null)
+                            }}
                             className="relative group text-gray-200 hover:text-gray-300 transition-colors text-sm sm:text-base lg:text-lg font-navbar"
                           >
                             {link.title}
