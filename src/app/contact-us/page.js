@@ -68,6 +68,7 @@ export default function ContactSection() {
                 setModalOpen(false);
                 router.push("/");
             }, 5000);
+        
         } catch (e) {
             console.error(e);
             setModalMessage("Failed to submit form. Please try again.");
@@ -77,6 +78,7 @@ export default function ContactSection() {
         finally {
             setLoading(false);
         }
+        
     };
 
     return (
