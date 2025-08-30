@@ -116,14 +116,14 @@ const FabricsHero = () => {
                                         key={index}
                                         className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
                                     >
-                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                                        <div className="relative h-[400px] lg:h-[300px] overflow-hidden">
                                             <Image
                                                 src={image}
                                                 alt={`Mission ${index}`}
                                                 fill
                                                 className="object-cover"
                                                 sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-                                                quality={85}
+                                                quality={100}
                                             />
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@ const FabricsHero = () => {
                                         key={index}
                                         className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
                                     >
-                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                                        <div className="relative h-[400px] lg:h-[300px] overflow-hidden">
                                             <Image
                                                 src={image}
                                                 alt={`Mission ${index}`}

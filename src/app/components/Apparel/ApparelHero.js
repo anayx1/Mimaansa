@@ -98,8 +98,7 @@ const ApparelHero = () => {
                     transformOrigin: "top center"
                 }}
             >
-                <section className="bg-secondary pt-16 ">
-
+                <section className="bg-secondary pt-16">
                     <div className=" mx-auto">
                         {/* HEADER GRID */}
                         <div className='w-[95%] flex justify-center items-center mx-auto'>
@@ -119,14 +118,14 @@ const ApparelHero = () => {
                                         key={index}
                                         className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
                                     >
-                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                                        <div className="relative h-[400px] lg:h-[300px] overflow-hidden">
                                             <Image
                                                 src={image}
                                                 alt={`Mission ${index}`}
                                                 fill
                                                 className="object-cover"
                                                 sizes="(max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-                                                quality={85}
+                                                quality={100}
                                             />
                                         </div>
                                     </div>
@@ -140,7 +139,7 @@ const ApparelHero = () => {
                                         key={index}
                                         className="flex-shrink-0 w-[200px] md:w-[250px] lg:w-[300px] px-1"
                                     >
-                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+                                        <div className="relative h-[400px] lg:h-[300px] overflow-hidden">
                                             <Image
                                                 src={image}
                                                 alt={`Mission ${index}`}

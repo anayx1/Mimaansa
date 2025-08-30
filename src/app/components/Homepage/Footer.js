@@ -91,10 +91,6 @@ export default function Footer() {
                     {/* Description */}
                     <motion.p
                         className="text-white text-sm sm:text-base lg:text-lg leading-relaxed max-w-4xl mx-auto text-center mt-12 lg:mt-16 px-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        viewport={{ once: true }}
                     >
                         Let's start a conversation. Whether you're a growing brand or an established retailer, Mimaansa is here to
                         support your journey. Get in touch with us today to discuss your needs and discover how we can deliver the
@@ -103,14 +99,11 @@ export default function Footer() {
                 </div>
 
                 {/* Footer Bottom */}
-                <div className="py-10">
+                <div className="pt-10">
                     {/* Social Links */}
                     <motion.div
                         className="flex flex-wrap justify-center gap-5 items-center mb-8"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        viewport={{ once: true }}
+
                     >
 
                         <Link
@@ -145,14 +138,9 @@ export default function Footer() {
 
                     {/* Copyright */}
                     <motion.div
-                        className="text-center "
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 1.2 }}
-                        viewport={{ once: true }}
-                    >
+                        className="text-center">
                         <Link href={'https://vikavalabs.com/'} target="_blank">
-                            <p className="text-white text-xs sm:text-sm tracking-wider ">CRAFTED BY VIKAVA LABS</p>
+                            <p className="text-white text-xs sm:text-sm tracking-wider ">CRAFTED BY <em className="underline">VIKAVA LABS</em></p>
                         </Link>
                     </motion.div>
                 </div>
