@@ -1,17 +1,17 @@
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
+// // /app/auth/check/route.js
+// import { NextResponse } from "next/server"
 
-export default function useAdminAuth() {
-    const router = useRouter()
+// export async function GET(req) {
+//     try {
+//         const sessionCookie = req.cookies.get("admin-session")
 
-    useEffect(() => {
-        async function verify() {
-            const res = await fetch("/auth/check")
-            const { authenticated } = await res.json()
-            if (!authenticated) {
-                router.push("/login")
-            }
-        }
-        verify()
-    }, [router])
-}
+//         if (sessionCookie && sessionCookie.value === "authenticated") {
+//             return NextResponse.json({ authenticated: true })
+//         }
+
+//         return NextResponse.json({ authenticated: false })
+//     } catch (error) {
+//         console.error("Auth check error:", error)
+//         return NextResponse.json({ authenticated: false }, { status: 500 })
+//     }
+// }

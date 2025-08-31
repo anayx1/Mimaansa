@@ -5,6 +5,7 @@ import * as XLSX from "xlsx"
 import { ButtonDark } from "../components/Button"
 import { useRouter } from "next/navigation"
 import { DoorOpen, LogOut } from "lucide-react"
+import Link from "next/link"
 
 // Constants
 const ITEMS_PER_PAGE_OPTIONS = [5, 10, 25, 50]
@@ -42,10 +43,13 @@ export default function AdminPage() {
 
     const router = useRouter() // <-- Initialize router
 
-    // Logout function
+
     const handleLogout = () => {
-        localStorage.removeItem("isAuthenticated") // Clear auth state
-        router.push("/login") // Redirect to login page
+        // Clear the cookie by setting it to expire
+        document.cookie = "admin-session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict"
+        console.log("🔴 Cookie cleared")
+        // Redirect to login
+        router.push("/login")
     }
 
     // Fetch entries with error handling and cleanup
@@ -373,10 +377,12 @@ export default function AdminPage() {
                                 </svg>
                                 Export Excel
                             </button>
-                            <span className="flex gap-2 justify-center bg-red-50 items-center rounded-lg border-1 border-red-500 p-2 cursor-pointer" onClick={handleLogout}>
-                                <LogOut className=" text-red-500  h-5 w-5" />
-                                Logout
-                            </span>
+                            <Link href={'/'}>
+                                <span className="flex gap-2 justify-center bg-red-50 items-center rounded-lg border-1 border-red-500 p-2 cursor-pointer" >
+                                    <LogOut className=" text-red-500  h-5 w-5" />
+                                    Logout
+                                </span>
+                            </Link>
                         </div>
                     </div>
                 </div>
