@@ -22,8 +22,12 @@ const page = () => {
       <ScrollColorSection />
       <ServicesSection />
       <ProductCategoriesSection />
-      <TimelineComponent />
-      <AccordionSection />
+      <section className='overflow-x-hidden'>
+        <TimelineComponent />
+      </section>
+      <section className='overflow-x-hidden'>
+        <AccordionSection />
+      </section>
       <div>
         {/* Desktop Version */}
         <div className="hidden md:block">
@@ -31,7 +35,7 @@ const page = () => {
         </div>
 
         {/* Mobile Version */}
-        <div className="md:hidden">
+        <div className="md:hidden overflow-x-hidden">
           <MobileTestimonialCarousel />
         </div>
       </div>
