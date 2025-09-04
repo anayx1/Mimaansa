@@ -94,10 +94,14 @@ const AnimatedNavbar = () => {
     { title: "FACEBOOK", href: "/contact-us" },
     { title: "YOUTUBE", href: "/contact-us" },
     { title: "LINKEDIN", href: "/contact-us" },
+    // { title: "TERMS & CONDITIONS", href: "/terms-and-conditions" },
+    // { title: "PRIVACY POLICY", href: "/privacy-policy" },
+  ]
+
+  const legalLinks = [
     { title: "TERMS & CONDITIONS", href: "/terms-and-conditions" },
     { title: "PRIVACY POLICY", href: "/privacy-policy" },
   ]
-
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -164,9 +168,11 @@ const AnimatedNavbar = () => {
         <div className="w-[98%] h-full flex items-center justify-center">
           <div className="flex items-center justify-between px-6 py-4 w-full">
             {/* Logo */}
-            <div className="h-auto">
-              <span className="text-xl sm:text-2xl lg:text-3xl font-navbar tracking-wide">MIMAANSA</span>
-            </div>
+            <Link href="/">
+              <div className="h-auto">
+                <span className="text-xl sm:text-2xl lg:text-3xl font-navbar tracking-wide">MIMAANSA</span>
+              </div>
+            </Link>
 
             {/* Hamburger Menu Button - 2 lines */}
             <button
@@ -454,23 +460,43 @@ const AnimatedNavbar = () => {
                       transition={{ duration: 0.5, delay: 0.6 }}
                     >
                       {/* Social Links */}
-                      <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-6 text-sm justify-start lg:justify-start">
-                        {socialLinks.map((link, index) => (
-                          <Link
-                            key={index}
-                            href={link.href}
-                            onClick={() => {
-                              // Close the navbar when any footer link is clicked
-                              setIsMenuOpen(false)
-                              setOpenMobileSubmenu(null)
-                              setHoveredItem(null)
-                            }}
-                            className="relative group text-gray-200 hover:text-gray-300 transition-colors text-sm sm:text-base lg:text-lg font-navbar"
-                          >
-                            {link.title}
-                            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full" />
-                          </Link>
-                        ))}
+                      <div className="space-y-4">
+                        <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-6 text-sm justify-start lg:justify-start">
+                          {socialLinks.map((link, index) => (
+                            <Link
+                              key={index}
+                              href={link.href}
+                              onClick={() => {
+                                // Close the navbar when any footer link is clicked
+                                setIsMenuOpen(false)
+                                setOpenMobileSubmenu(null)
+                                setHoveredItem(null)
+                              }}
+                              className="relative group text-gray-200 hover:text-gray-300 transition-colors text-sm sm:text-base lg:text-lg font-navbar"
+                            >
+                              {link.title}
+                              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full" />
+                            </Link>
+                          ))}
+                        </div>
+                        <div className="flex flex-wrap gap-2 sm:gap-3 lg:gap-6 text-sm justify-start lg:justify-start">
+                          {legalLinks.map((link, index) => (
+                            <Link
+                              key={index}
+                              href={link.href}
+                              onClick={() => {
+                                // Close the navbar when any footer link is clicked
+                                setIsMenuOpen(false)
+                                setOpenMobileSubmenu(null)
+                                setHoveredItem(null)
+                              }}
+                              className="relative group text-gray-200 hover:text-gray-300 transition-colors text-sm sm:text-base lg:text-lg font-navbar"
+                            >
+                              {link.title}
+                              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-200 transition-all duration-400 group-hover:w-full" />
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     </motion.div>
 
@@ -481,7 +507,7 @@ const AnimatedNavbar = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.8 }}
                     >
-                      © 2025 Mimaansa &nbsp;&nbsp; All rights reserved &nbsp;&nbsp; Crafted by Vikava Labs
+                      © 2025 Mimaansa &nbsp;&nbsp; All rights reserved &nbsp;&nbsp; Crafted by <Link href="https://vikavalabs.com/ " target="_blank" className="underline">Vikava Labs</Link>
                     </motion.div>
                   </div>
                 </div>

@@ -3,6 +3,8 @@ import { Inter, Poppins } from 'next/font/google';
 import AnimatedNavbar from "./components/Navbar";
 import Footer from "./components/Homepage/Footer";
 import SmoothScroll from "./SmoothScroll";
+import Image from "next/image";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -24,6 +26,18 @@ export default function RootLayout({ children }) {
         {/* <SmoothScroll> */}
         <AnimatedNavbar />
         {children}
+        <div className="fixed bottom-6 right-6 z-50 cursor-pointer">
+          <Link href={'https://wa.me/+919910924032'}>
+            <Image
+              src="/whatsappicon.png"
+              alt="Whatsapp"
+              width={60}
+              height={60}
+              className="drop-shadow-lg w-12 h-12 "
+            />
+          </Link>
+        </div>
+
         <Footer />
         {/* </SmoothScroll> */}
       </body>

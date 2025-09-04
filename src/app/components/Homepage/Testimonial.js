@@ -5,72 +5,58 @@ import { motion } from "framer-motion"
 const testimonialsData = [
     {
         id: 1,
-        name: "Sarah Johnson",
+        name: "Emma Lewis",
         role: "UK",
-        content: "This platform has completely transformed how we manage our projects. The gains are remarkable.",
+        content: "Mimaansa made sourcing so much easier for us. From fabrics to finished apparel, everything was on time and exactly as we imagined. Their professionalism is unmatched.",
         avatar: "/user.avif"
     },
     {
         id: 2,
-        name: "Michael Chen",
-        role: "Germany",
-        content: "Outstanding service and support. The team goes above and beyond to ensure our success.",
+        name: "Marco Rossi",
+        role: "Italy",
+        content: "We wanted artisanal, handmade products for our store, and Mimaansa connected us with the best. Quality and craftsmanship were beyond expectations.",
         avatar: "/user.avif"
     },
     {
         id: 3,
-        name: "Emily Rodriguez",
-        role: "USA",
-        content: "The results speak for themselves. We've seen a 300% increase in productivity since implementation.",
+        name: "Riya Sharma ",
+        role: "India",
+        content: "They understood our brand vision and sourced fabrics that aligned perfectly. The team is reliable, creative, and detail-oriented.",
         avatar: "/user.avif"
     },
     {
         id: 4,
-        name: "David Thompson",
-        role: "CTO, DataFlow",
-        content: "Incredible attention to detail and seamless integration. This is exactly what we needed.",
+        name: "Jonathan Davis",
+        role: "Australia",
+        content: "We've been sourcing home furnishings through Mimaansa for over a year. The quality has always been excellent, and deliveries are smooth and hassle-free.",
         avatar: "/user.avif"
     },
     {
         id: 5,
-        name: "Lisa Park",
-        role: "Director, CreativeStudio",
-        content: "The user experience is phenomenal. Our team adopted it immediately without any training.",
+        name: " Sophia Chen",
+        role: "Singapore",
+        content: "What impressed me most was their transparent communication. We always knew what stage our order was at, and everything arrived exactly as promised.",
         avatar: "/user.avif"
     },
     {
         id: 6,
-        name: "James Wilson",
-        role: "VP Operations, ScaleUp",
-        content: "Best investment we've made this year. The ROI has exceeded all our expectations.",
+        name: " David Miller",
+        role: "USA",
+        content: "Mimaansa has been a true partner in scaling our brand. Their sourcing solutions gave us both cost efficiency and premium quality.",
         avatar: "/user.avif"
     },
     {
         id: 7,
-        name: "Maria Garcia",
-        role: "Head of Marketing, BrandForce",
-        content: "Revolutionary approach to solving complex problems. Highly recommend to any growing business.",
+        name: "Ananya Verma",
+        role: "India",
+        content: "They don't just source — they guide you with design insights, sustainable options, and smart solutions. That's what makes them stand out.",
         avatar: "/user.avif"
     },
     {
         id: 8,
-        name: "Robert Kim",
-        role: "Senior Developer, CodeCraft",
-        content: "Clean, intuitive, and powerful. Everything we wanted in a solution and more.",
-        avatar: "/user.avif"
-    },
-    {
-        id: 9,
-        name: "Amanda Foster",
-        role: "Operations Manager, FlowTech",
-        content: "The automation features have saved us countless hours. Absolutely game-changing.",
-        avatar: "/user.avif"
-    },
-    {
-        id: 10,
-        name: "Carlos Mendez",
-        role: "Startup Founder, NextGen",
-        content: "From day one, this platform has been integral to our growth strategy. Couldn't be happier.",
+        name: "Carlos Martinez",
+        role: "Spain",
+        content: "Every collection we sourced through Mimaansa was loved by our customers. Their team ensures that products are market-ready and beautifully made.",
         avatar: "/user.avif"
     }
 ]

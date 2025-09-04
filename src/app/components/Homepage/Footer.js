@@ -17,7 +17,7 @@ export default function Footer() {
 
     return (
         <footer
-            className="bg-secondary text-white min-h-screen flex flex-col justify-center relative py-10"
+            className="bg-secondary text-white min-h-screen flex flex-col justify-center relative py-3"
         >
             <div className="w-full max-w-7xl mx-auto px-6 flex-1 flex flex-col justify-center">
                 {/* Main Content */}
@@ -30,10 +30,8 @@ export default function Footer() {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-3xl md:text-5xl font-normal text-white mb-8 leading-relaxed max-w-6xl mx-auto px-4">
-                            Are you ready to simplify your sourcing and
-                            <br className="hidden md:block" />
-                            manufacturing in India?
+                        <h2 className="text-3xl md:text-4xl font-normal text-white mb-8 leading-relaxed max-w-6xl mx-auto px-4">
+                            Are you ready to simplify your sourcing from India?
                         </h2>
                         <Link href={'/contact-us'}>
 
@@ -89,13 +87,13 @@ export default function Footer() {
                     </section>
 
                     {/* Description */}
-                    <motion.p
+                    {/* <motion.p
                         className="text-white text-base lg:text-md leading-relaxed max-w-5xl mx-auto text-center mt-12 lg:mt-16 px-4"
                     >
                         Let's start a conversation. Whether you're a growing brand or an established retailer, Mimaansa is here to
                         support your journey. Get in touch with us today to discuss your needs and discover how we can deliver the
                         perfect sourcing solution.
-                    </motion.p>
+                    </motion.p> */}
                 </div>
 
                 {/* Footer Bottom */}

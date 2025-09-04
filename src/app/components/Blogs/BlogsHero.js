@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
 import { ButtonDark } from '../Button'
+import Link from 'next/link'
 
 
 
@@ -79,7 +80,9 @@ const BlogsHero = () => {
 
                         The Journey of a Product: <br />From Idea to Shipment with Mimaansa
                     </p>
+                    <Link href="/blogs/product-journey">
                     <ButtonDark>Read More</ButtonDark>
+                    </Link>
 
                 </div>
             </motion.section>

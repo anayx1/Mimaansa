@@ -1,13 +1,13 @@
 import React from 'react'
 import BuiltWithCare from '../components/Apparel/BuildWithCare'
-import FabricsHero from '../components/Fabrics/FabricsHero'
-import FabricsImageSection from '../components/Fabrics/FabricsImageSection'
+import FurnitureHero from '../components/HomeFurnishing/FurnitureHero'
+import FurnitureImageSection from '../components/HomeFurnishing/FurnitureImageSection'
 
 const page = () => {
     return (
         <>
-            <FabricsHero />
-            <FabricsImageSection />
+            <FurnitureHero />
+            <FurnitureImageSection />
             <BuiltWithCare />
 
         </>
