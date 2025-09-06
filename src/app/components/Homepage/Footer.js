@@ -140,6 +140,9 @@ export default function Footer() {
                         <Link href={'https://vikavalabs.com/'} target="_blank">
                             <p className="text-white text-xs  tracking-wider ">CRAFTED BY <em className="underline">VIKAVA LABS</em></p>
                         </Link>
+                        <span className="text-white/70 text-[8px] text-center w-full mt-5">
+                            Images featured on this website remain the intellectual property of the respective clients/buyers. Mimaansa claims no ownership over them
+                        </span>
                     </motion.div>
                 </div>
             </div>

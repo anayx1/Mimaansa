@@ -29,12 +29,9 @@ const page = () => {
         <AccordionSection />
       </section>
       <div>
-        {/* Desktop Version */}
         <div className="hidden md:block">
           <TestimonialCarousel />
         </div>
-
-        {/* Mobile Version */}
         <div className="md:hidden overflow-x-hidden">
           <MobileTestimonialCarousel />
         </div>
